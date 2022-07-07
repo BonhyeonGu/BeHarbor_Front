@@ -3,7 +3,7 @@ import pymysql
 
 app = Flask(__name__)
 app.secret_key = b'aaa!111/'
-db = pymysql.connect(host='docs.9bon.org', port=14406, user='flask', passwd='1234', db='flask', charset='utf8')
+db = pymysql.connect(host='9bon.org', port=14406, user='flask', passwd='1234', db='flask', charset='utf8')
 cur = db.cursor()
 @app.route("/")
 def start():
