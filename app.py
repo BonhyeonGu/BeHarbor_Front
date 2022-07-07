@@ -6,8 +6,7 @@ app.secret_key = b'aaa!111/'
 db = pymysql.connect(host='9bon.org', port=14406, user='flask', passwd='1234', db='flask', charset='utf8')
 cur = db.cursor()
 @app.route("/")
-def start():
-	uno = -1
+def login_front():
 	if 'user_no' in session:
 		uno = session['user_no']
 	print(uno)
