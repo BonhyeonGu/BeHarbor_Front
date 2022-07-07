@@ -1,5 +1,7 @@
+import bcrypt
 from flask import Flask, render_template, request, session, jsonify
 import pymysql
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 app.secret_key = b'aaa!111/'
@@ -28,6 +30,19 @@ def loginBack():
 		return render_template('main.html')
 	else:
 		return "알맞지 않음"	
+
+@app.route("/signup_front")
+def signupFront():
+	return render_template('signup.html')
+
+@app.route("/signup_back", methods=['POST'])
+def signupBack():
+	uid = request.form['uid']
+	upw = request.form['upw']
+	sql = "INSERT INTO Users (id, pw) VALUES(%s,%s)"
+	encodeupw = bcrypt.hashpw(upw.encode('utf-8'),bcrypt.gensalt())
+	#cur.execute(sql,())
+	return render_template('signup.html')
 
 @app.route("/join_front")
 def joinFront():
