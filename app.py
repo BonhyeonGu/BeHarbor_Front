@@ -1,35 +1,68 @@
 import bcrypt
-from flask import Flask, render_template, request, session, jsonify
+from flask import Flask, render_template, request, session, jsonify, redirect, url_for
 import pymysql
 from flask_bcrypt import Bcrypt
 
-app = Flask(__name__)
-app.secret_key = b'aaa!111/'
-db = pymysql.connect(host='9bon.org', port=14406, user='flask', passwd='1234', db='flask', charset='utf8')
-cur = db.cursor()
-@app.route("/")
-def login_front():
-	if 'user_no' in session:
-		uno = session['user_no']
-	print(uno)
-	return render_template('main.html', value=uno)
+from sub.secret import Secret
 
-@app.route("/login_front")
-def loginFront():
-	return render_template('login.html')
+app = Flask(__name__)
+app.secret_key = Secret.session_secret_key
+db = pymysql.connect(host=Secret.db_host, port=Secret.db_port, user=Secret.db_user, passwd=Secret.db_passwd, db=Secret.db_name, charset='utf8')
+cur = db.cursor()
+
+@app.route("/")
+def root():
+	return redirect(url_for('/home_front'))
+
+@app.route("/home")
+def home_front():
+	if 'name' in session:
+		return render_template('home.html', user_name=session['no'])
+	return render_template('home.html', user_name='NULL')
+
 @app.route("/login_back", methods=['POST'])
-def loginBack():
-	uid = request.form['uid']
-	upw = request.form['upw']
-	sql = "SELECT uno, pw FROM Users WHERE id = %s"
-	cur.execute(sql,(uid))
-	sel = cur.fetchall()
-	if upw==sel[0][1]:
-		uno = sel[0][0]
-		session['user_no'] = uno
-		return render_template('main.html')
-	else:
-		return "알맞지 않음"	
+def login_back():
+	inp_id = request.form['id']
+	inp_pw = request.form['pw']
+	sql = "SELECT EXISTS (SELECT id FROM users WHERE id = %s LIMIT 1) AS SUCCESS;"
+	cur.execute(sql, (inp_id))
+	res = cur.fetchall[0]
+	if(res == 0):
+		return redirect(url_for('/fail'))
+	sql = "SELECT no, pw, name FROM users WHERE id = %s"
+	cur.execute(sql, (inp_id))
+	q_no, q_pw, q_name = cur.fetchall()
+	if not bcrypt.checkpw(q_pw, inp_pw):
+		return redirect(url_for('/fail'))
+	session['no'] = q_no
+	session['name'] = q_name
+	return render_template('home.html', user_name=q_name)
+
+@app.route("/logout")
+def logout():
+	if not 'no' in session:
+		return redirect(url_for('/home'))
+	session.clear()
+	return redirect(url_for('/home'))
+
+@app.route("/fail")
+def fail():
+	if 'no' in session:
+		return redirect(url_for('/home'))
+	return render_template('')
+
+@app.route("/ide")
+def ide():
+	if not 'no' in session:
+		return redirect(url_for('/home'))
+	url = 'http://' + Secret.ip_addr + str(Secret.ide_port + int(session['no']))
+	return redirect(url)
+
+@app.route("/upload")
+def upload():
+	if not 'no' in session:
+		return redirect(url_for('/home'))
+	return render_template('home.html', user_name='NULL')
 
 @app.route("/signup_front")
 def signupFront():
@@ -47,6 +80,7 @@ def signupBack():
 @app.route("/join_front")
 def joinFront():
 	return render_template('join.html')
+
 @app.route("/join_back", methods=['POST'])
 def post():
 	#uid = request.form['input']
