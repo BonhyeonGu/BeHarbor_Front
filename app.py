@@ -73,9 +73,12 @@ def signupBack():
 	uid = request.form['uid']
 	upw = request.form['upw']
 	sql = "INSERT INTO Users (id, pw) VALUES(%s,%s)"
-	encodeupw = bcrypt.hashpw(upw.encode('utf-8'),bcrypt.gensalt())
-	#cur.execute(sql,())
-	return render_template('signup.html')
+	encodeupw = bcrypt.hashpw(upw.encode('utf-8'),bcrypt.gensalt()) #encodeupw==> 암호화된 비번을 저장하는 변수
+	#c는 입력받은 로그인 비번
+	#bcryt.checkpw(c.encode('utf-8'),encodeupw)이런씩으로 확인하면 됩니당
+	cur.execute(sql,(uid,encodeupw))
+	db.commit()
+	return render_template('signup.html') 
 
 @app.route("/join_front")
 def joinFront():
