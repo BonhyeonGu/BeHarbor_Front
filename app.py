@@ -1,7 +1,6 @@
 import bcrypt
 from flask import Flask, render_template, request, session, jsonify, redirect, url_for
 import pymysql
-from flask_bcrypt import Bcrypt
 
 from sub.secret import Secret
 
@@ -12,12 +11,12 @@ cur = db.cursor()
 
 @app.route("/")
 def root():
-	return redirect(url_for('/home_front'))
+	return redirect(url_for('home'))
 
 @app.route("/home")
-def home_front():
-	if 'name' in session:
-		return render_template('home.html', user_name=session['no'])
+def home():
+	if not 'name' in session:
+		return render_template('home.html', user_name=session['name'])
 	return render_template('home.html', user_name='NULL')
 
 @app.route("/login_back", methods=['POST'])
@@ -54,15 +53,15 @@ def fail():
 @app.route("/ide")
 def ide():
 	if not 'no' in session:
-		return redirect(url_for('/home'))
+		return redirect(url_for('home'))
 	url = 'http://' + Secret.ip_addr + str(Secret.ide_port + int(session['no']))
 	return redirect(url)
 
 @app.route("/upload")
 def upload():
 	if not 'no' in session:
-		return redirect(url_for('/home'))
-	return render_template('home.html', user_name='NULL')
+		return redirect(url_for('home'))
+	return render_template('upload.html', user_name='NULL')
 
 @app.route("/signup_front")
 def signupFront():
@@ -78,7 +77,7 @@ def signupBack():
 	#bcryt.checkpw(c.encode('utf-8'),encodeupw)이런씩으로 확인하면 됩니당
 	cur.execute(sql,(uid,encodeupw))
 	db.commit()
-	return render_template('signup.html') 
+	return redirect(url_for('signupFront'))
 
 @app.route("/join_front")
 def joinFront():
