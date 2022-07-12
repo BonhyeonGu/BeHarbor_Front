@@ -9,3 +9,5 @@ class Secret:
     db_name = 'flask'
 
     ide_port = 12000
+
+    workspace = '/etc/'

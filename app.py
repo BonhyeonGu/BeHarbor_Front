@@ -1,8 +1,10 @@
 import bcrypt
-from flask import Flask, render_template, request, session, jsonify, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for
 import pymysql
+from werkzeug.utils import secure_filename
 
 from sub.secret import Secret
+from util import Util
 
 app = Flask(__name__)
 app.secret_key = Secret.session_secret_key
@@ -11,13 +13,13 @@ cur = db.cursor()
 
 @app.route("/")
 def root():
-	return redirect(url_for('home'))
+	return redirect(url_for('login'))
 
-@app.route("/home")
-def home():
-	if not 'name' in session:
-		return render_template('home.html', user_name=session['name'])
-	return render_template('home.html', user_name='NULL')
+@app.route("/login")
+def login():
+	if 'no' in session:
+		return redirect(url_for('home'))
+	return render_template('login.html')
 
 @app.route("/login_back", methods=['POST'])
 def login_back():
@@ -27,12 +29,12 @@ def login_back():
 	cur.execute(sql, (inp_id))
 	res = cur.fetchall[0]
 	if(res == 0):
-		return redirect(url_for('/fail'))
+		return redirect(url_for('fail_login'))
 	sql = "SELECT no, pw, name FROM users WHERE id = %s"
 	cur.execute(sql, (inp_id))
 	q_no, q_pw, q_name = cur.fetchall()
 	if not bcrypt.checkpw(q_pw, inp_pw):
-		return redirect(url_for('/fail'))
+		return redirect(url_for('fail_login'))
 	session['no'] = q_no
 	session['name'] = q_name
 	return render_template('home.html', user_name=q_name)
@@ -40,28 +42,45 @@ def login_back():
 @app.route("/logout")
 def logout():
 	if not 'no' in session:
-		return redirect(url_for('/home'))
+		return redirect(url_for('home'))
 	session.clear()
-	return redirect(url_for('/home'))
+	return redirect(url_for('home'))
 
-@app.route("/fail")
-def fail():
+@app.route("/fail_login")
+def fail_login():
 	if 'no' in session:
-		return redirect(url_for('/home'))
-	return render_template('')
+		return redirect(url_for('home'))
+	return render_template('fail_login.html')
+
+@app.route("/home")
+def home():
+	if not 'no' in session:
+		return redirect(url_for('login'))
+	return render_template('home.html', user_name=session['name'])
 
 @app.route("/ide")
 def ide():
 	if not 'no' in session:
-		return redirect(url_for('home'))
+		return redirect(url_for('login'))
 	url = 'http://' + Secret.ip_addr + str(Secret.ide_port + int(session['no']))
 	return redirect(url)
 
-@app.route("/upload")
-def upload():
+@app.route("/file_setting")
+def file_setting():
 	if not 'no' in session:
-		return redirect(url_for('home'))
-	return render_template('upload.html', user_name='NULL')
+		return redirect(url_for('login'))
+	location = Secret.workspace + session['id']
+	return render_template('file_setting.html', files=Util.outDirList(location), use=Util.outDirByte(location))
+
+@app.route("/upload_back", methods=['POST'])
+def upload_back():
+	if not 'no' in session:
+		return redirect(url_for('login'))
+	location = Secret.workspace + session['id']
+
+	file = request.files['file']
+	file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+	return redirect(url_for('file_setting'))
 
 @app.route("/signup_front")
 def signupFront():
@@ -71,43 +90,13 @@ def signupFront():
 def signupBack():
 	uid = request.form['uid']
 	upw = request.form['upw']
-	sql = "INSERT INTO Users (id, pw) VALUES(%s,%s)"
+	sql = "INSERT INTO users (id, pw) VALUES(%s,%s)"
 	encodeupw = bcrypt.hashpw(upw.encode('utf-8'),bcrypt.gensalt()) #encodeupw==> 암호화된 비번을 저장하는 변수
 	#c는 입력받은 로그인 비번
 	#bcryt.checkpw(c.encode('utf-8'),encodeupw)이런씩으로 확인하면 됩니당
 	cur.execute(sql,(uid,encodeupw))
 	db.commit()
 	return redirect(url_for('signupFront'))
-
-@app.route("/join_front")
-def joinFront():
-	return render_template('join.html')
-
-@app.route("/join_back", methods=['POST'])
-def post():
-	#uid = request.form['input']
-	#upw = ['김치 만드는법', '오늘의 과자', '유행하고 있는 과일', '맛있는 초콜릿']
-	uid = request.form['uid']
-	upw = request.form['upw']
-	sql = "INSERT INTO Users (id, pw) VALUES(%s,%s)"
-	cur.execute(sql,(uid, upw))
-	db.commit()
-	return render_template('main.html')
-	#return render_template('output.html', value = value, value2 = value2)
-
-@app.route("/go_out", methods=['POST'])
-def goOut():
-	print(request.is_json)#받아온게 json?
-	j = request.json#main->string=>json->j
-	print(j['name'])
-	return render_template('out.html')
-
-@app.route("/want*", methods=['POST'])
-def want():
-	name = "abc"
-	old = 10
-	test_data = {"name" : name, "old" : old}
-	return jsonify(test_data)
 
 if __name__ == "__main__":
 	app.debug = True
