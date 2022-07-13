@@ -6,7 +6,7 @@
 </head>
 <body>
 	<table border = "1">
-		<tr><th>파일 이름</th></tr>
+		<tr><th>파일 이름 이름</th></tr>
 		{% for i in value2 %}
 		<tr><td>{{i}}</td></tr>
 		{% endfor %}
