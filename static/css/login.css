@@ -3,5 +3,8 @@ h2{
 }
 
 body {
-    background-color: white;
+    background-color: aquamarine;
+    background-image: url('https://img.wowtv.co.kr/wowtv_news/dnrs/20211201/2021120109134603257d3244b4fed58141237161.jpg');
+    background-repeat: no-repeat;
+    background-size : cover ;
 }
