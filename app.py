@@ -27,13 +27,14 @@ def login_back():
 	inp_pw = request.form['pw']
 	sql = "SELECT EXISTS (SELECT id FROM users WHERE id = %s LIMIT 1) AS SUCCESS;"
 	cur.execute(sql, (inp_id))
-	res = cur.fetchall[0]
+	res = cur.fetchall()[0]
 	if(res == 0):
 		return redirect(url_for('fail_login'))
 	sql = "SELECT no, pw, name FROM users WHERE id = %s"
 	cur.execute(sql, (inp_id))
-	q_no, q_pw, q_name = cur.fetchall()
-	if not bcrypt.checkpw(q_pw, inp_pw):
+	q_no, q_pw, q_name = cur.fetchall()[0]
+	q_pw = q_pw.encode('utf-8')
+	if not bcrypt.checkpw(inp_pw.encode('utf-8'), q_pw):
 		return redirect(url_for('fail_login'))
 	session['no'] = q_no
 	session['name'] = q_name
@@ -82,19 +83,20 @@ def upload_back():
 	#file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
 	return redirect(url_for('file_setting'))
 
-@app.route("/signup_front")
+@app.route("/signup")
 def signupFront():
 	return render_template('signup.html')
 
 @app.route("/signup_back", methods=['POST'])
 def signupBack():
-	uid = request.form['uid']
-	upw = request.form['upw']
-	sql = "INSERT INTO users (id, pw) VALUES(%s,%s)"
-	encodeupw = bcrypt.hashpw(upw.encode('utf-8'),bcrypt.gensalt()) #encodeupw==> 암호화된 비번을 저장하는 변수
+	uname = request.form['name']
+	uid = request.form['id']
+	upw = request.form['pw']
+	sql = "INSERT INTO users (id, pw, name) VALUES(%s, %s, %s)"
+	encodeupw = bcrypt.hashpw(upw.encode('utf-8'), bcrypt.gensalt()) #encodeupw==> 암호화된 비번을 저장하는 변수
 	#c는 입력받은 로그인 비번
 	#bcryt.checkpw(c.encode('utf-8'),encodeupw)이런씩으로 확인하면 됩니당
-	cur.execute(sql,(uid,encodeupw))
+	cur.execute(sql,(uid, encodeupw.decode('utf-8'), uname))
 	db.commit()
 	return redirect(url_for('signupFront'))
 
