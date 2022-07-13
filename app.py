@@ -79,7 +79,7 @@ def upload_back():
 	location = Secret.workspace + session['id']
 
 	file = request.files['file']
-	file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+	#file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
 	return redirect(url_for('file_setting'))
 
 @app.route("/signup_front")
