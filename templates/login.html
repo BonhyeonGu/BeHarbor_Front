@@ -2,16 +2,22 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@200&family=Montserrat:ital,wght@1,100&family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="{{url_for('static',filename='css/login.css')}}">
 	<title>로그인</title>
 </head>
 <body>
 	<h2>로그인</h2>
+	<br><br>
+	<div class = "box"></div>
+	<div class ="login_form">
 	<form action="/login_back" method="post">
-	<p>아이디 : <input type="text" id="id" name="id"></p>
-	<p>비밀번호 : <input type="password" id="pw" name="pw"></p>
-	<p><input type="submit" value="제출" onclick="alert('제출 완료!')" /></p>
-	<img src="/image/docker mascot.gif">
+	<p><input type="text" id="id" name="id" placeholder = "아이디" size = "50"></p><br>
+	<p><input type="password" id="pw" name="pw" placeholder = "비밀번호" size = "50"></p><br>
+	<p><input type="submit" id = "sub" value="로그인" onclick="alert('입력 완료')" /></p>
 	</form>
+</div>
 </body>
 </html>
