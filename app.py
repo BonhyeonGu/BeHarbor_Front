@@ -54,8 +54,6 @@ def logout():
 
 @app.route("/fail_login")
 def fail_login():
-	if 'no' in session:
-		return redirect(url_for('home'))
 	return render_template('fail_login.html')
 
 @app.route("/home")
