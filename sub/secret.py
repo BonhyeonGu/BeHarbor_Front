@@ -13,3 +13,7 @@ class Secret:
     workspace = './file_setting_test/'
 
     app_secret_key = "ADSSFAFDAS"
+
+
+
+    maxbyte = 1024*1024*1024*1024*2

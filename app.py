@@ -73,8 +73,8 @@ def ide():
 def file_setting():
 	if not 'no' in session:
 		return redirect(url_for('login'))
-	location = app.config['UPLOAD_FOLDER'] + session['id']
 	u = Util()
+	location = app.config['UPLOAD_FOLDER'] + session['id']
 	names, dates_edit = u.outDirList(location)
 	return render_template('file_setting.html', names=names, dates_edit=dates_edit, use=u.outDirByte(location))
 
@@ -82,9 +82,13 @@ def file_setting():
 def upload_back():
 	if not 'no' in session:
 		return redirect(url_for('login'))
-	location = app.config['UPLOAD_FOLDER'] + session['id']
-	file = request.files['file']
 	u = Util()
+	location = app.config['UPLOAD_FOLDER'] + session['id']
+	use = u.outDirByte(location)
+	if use > Secret.maxbyte:
+		return redirect(url_for('file_setting'))
+	file = request.files['file']
+	
 	file.save(u.pathJoin(location, file.filename))
 	return redirect(url_for('file_setting'))
 
