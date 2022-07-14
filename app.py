@@ -2,17 +2,21 @@ import bcrypt
 from flask import Flask, render_template, request, session, redirect, url_for
 import pymysql
 from werkzeug.utils import secure_filename
-
+#-----------------------------------------------------
 from sub.secret import Secret
 from util import Util
-
+#-----------------------------------------------------
 app = Flask(__name__)
 app.secret_key = Secret.session_secret_key
 db = pymysql.connect(host=Secret.db_host, port=Secret.db_port, user=Secret.db_user, passwd=Secret.db_passwd, db=Secret.db_name, charset='utf8')
 cur = db.cursor()
-
+#-----------------------------------------------------
+app.secret_key = Secret.app_secret_key
+app.config['UPLOAD_FOLDER'] = Secret.workspace
+#-----------------------------------------------------
 @app.route("/")
 def root():
+	session.clear()
 	return redirect(url_for('login'))
 
 @app.route("/login")
@@ -37,6 +41,7 @@ def login_back():
 	if not bcrypt.checkpw(inp_pw.encode('utf-8'), q_pw):
 		return redirect(url_for('fail_login'))
 	session['no'] = q_no
+	session['id'] = inp_id
 	session['name'] = q_name
 	return render_template('home.html', user_name=q_name)
 
@@ -70,17 +75,19 @@ def ide():
 def file_setting():
 	if not 'no' in session:
 		return redirect(url_for('login'))
-	location = Secret.workspace + session['id']
-	return render_template('file_setting.html', files=Util.outDirList(location), use=Util.outDirByte(location))
+	location = app.config['UPLOAD_FOLDER'] + session['id']
+	u = Util()
+	names, dates_edit = u.outDirList(location)
+	return render_template('file_setting.html', names=names, dates_edit=dates_edit, use=u.outDirByte(location))
 
 @app.route("/upload_back", methods=['POST'])
 def upload_back():
 	if not 'no' in session:
 		return redirect(url_for('login'))
-	location = Secret.workspace + session['id']
-
+	location = app.config['UPLOAD_FOLDER'] + session['id']
 	file = request.files['file']
-	#file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+	u = Util()
+	file.save(u.pathJoin(location, file.filename))
 	return redirect(url_for('file_setting'))
 
 @app.route("/signup")

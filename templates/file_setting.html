@@ -5,15 +5,16 @@
 	<title>파일 세팅</title>
 </head>
 <body>
+	총 사용량 : {{use}}byte
 	<table border = "1">
-		<tr><th>파일 이름 이름</th></tr>
-		{% for i in value2 %}
-		<tr><td>{{i}}</td></tr>
+		<tr><th>이름</th><th>수정날짜</th></tr>
+		{% for i in range(names|length) %}
+		<tr><td>{{names[i]}}</td><td>{{dates_edit[i]}}</td></tr>
 		{% endfor %}
 	</table>
-    <form action="/login_back" method="post">
-        <p>아이디 : <input type="text" id="id" name="id"></p>
-        <p><input type="submit" value="제출" onclick="alert('제출 완료!')" /></p>
+	<form action="/upload_back" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" />
+        <input type="submit" />
     </form>
 </body>
 </html>
