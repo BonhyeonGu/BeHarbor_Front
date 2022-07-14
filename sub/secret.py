@@ -10,4 +10,6 @@ class Secret:
 
     ide_port = 12000
 
-    workspace = '/etc/'
+    workspace = './file_setting_test/'
+
+    app_secret_key = "ADSSFAFDAS"
