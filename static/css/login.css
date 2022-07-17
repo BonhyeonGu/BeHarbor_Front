@@ -23,6 +23,17 @@ h2{
     height: 100px;
     justify-content: center;
     align-items: center;
+    line-height: 30px;
+}
+.box{
+    background-color: white;
+    width: 400px;
+    padding: 50px;
+    margin: auto;
+    position: relative;
+    box-shadow: 5px 5px 5px;
+    justify-content: center;
+    text-align: center;
 }
 #sub{
     display: flex;
