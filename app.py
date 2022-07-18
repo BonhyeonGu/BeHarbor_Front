@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 import pymysql
 from werkzeug.utils import secure_filename
 #-----------------------------------------------------
-from sub.secret import Secret
+from secret.secret import Secret
 from util import Util
 #-----------------------------------------------------
 app = Flask(__name__)
