@@ -1,24 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@200&family=Montserrat:ital,wght@1,100&family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="{{url_for('static',filename='css/login.css')}}">
-	<title>로그인</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Coder Login</title>
 </head>
 <body>
-	<div class = "box">
-	<h2>로그인</h2>
-	<br><br>
-	<div class ="login_form">
-	<form action="/login_back" method="post">
-	<p><input type="text" id="id" name="id" placeholder = "아이디" size = "50"></p><br>
-	<p><input type="password" id="pw" name="pw" placeholder = "비밀번호" size = "50"></p><br>
-	<p><input type="submit" id = "sub" value="로그인" onclick="alert('입력 완료')" /></p>
-	</form>
-</div>
+	<div class="container" id="container">
+		<div class="form-container log-in-container">
+			<form action="/login_back" method ="post">
+				<h1>Login</h1>
+        <span>
+				<p>
+				<input type="text" id="id" name="id" maxlength="7" placeholder="아이디" />
+				<input type="password" id="pw" name="pw" placeholder="비밀번호" /> <span>
+				<a href="#">Do you need any help?</a> 
+        <!-- 
+          해당 부분은 고객 센터와 같은 링크로 서버팀 쪽 채팅으로 연결하는 기능을 했으면 좋겠다는 생각을 해보았습니다.
+          혹은 해당 a태그를 제거하고 서버팀 전화번호 등 관리자 전화 번호를 작성하는 용도로 사용했으면 좋겠습니다. 
+        -->
+        <p>
+				<button onclick="loginCheck()">Log In</button>
+			</form>
+		</div>
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-right">
+					<h1>Welcome, Coder!</h1>
+					<p>It is a web service provided by Dong-A University. If you want to use the web service, please log in.</p>
+          <!--
+            해당 h1 태그에는 환영 문구를 작성하였고, 
+            아래 p 태그는 해당 웹 사이트가 어떤 용도의 사이트임을 설명하기 위한 설명란처럼 구성하였음.
+          -->
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
+<script>
+  function loginCheck(event){
+    // 학번 입력여부 확인 
+    alert(check.studentNum.value);
+    if(check.studentNum!=null){
+        if(check.studentNum.value=="")
+        {
+            alert("학번을 입력하지 않았습니다.")
+            check.studentNum.focus()
+            return false;
+        }
+        // 학번이 비어있지 않고, 아이디 유효성을 검사한다. 
+        // 학번에 숫자만 입력가능하도록 검사 
+        var studentNumCheck= /^[0-9+]{6,12}$/;
+        if(!studentNumCheck.test(check.studentNum.value))
+        {
+            alert("학번은 7자리 숫자만 가능합니다.")
+            check.studentNum.focus();
+            return false;
+        }
+    }
+      
+    //비밀번호 입력여부 검사
+    if(check.pwd.vlaue="")
+    {
+        alert("비밀번호를 입력하지 않았습니다.")
+        check.pwd.focus();
+        return false;
+ 
+    }
+}
+</script>
 </html>
