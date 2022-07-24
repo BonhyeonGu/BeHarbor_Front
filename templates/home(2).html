@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<!--실제로 사용하는 홈이 아닌 개발시 참고할 수 있는 홈// 실제로 사용하지 않음-->
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>홈</title>
+	<!-- css연동(CDN) -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- css연동(직접) -->
+	<link href="assets/css/bootstrap.css" rel="stylesheet">
+	<link href="assets/css/style.css" rel="stylesheet">
+	<!-- favicon -->
+	<link rel="shortcut icon" href="assets/imgs/favicon.ico" type="image/x-icon">
+</head>
+<body>
+	<!-- css연동(CDN) -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
+	crossorigin="anonymous"></script>
+	<!-- css연동(직접) -->
+	<script src="assets/js/bootstrap.js"></script>
+	<script src="assets/js/main.js"></script>
+
+	<!-- ############## Header Start ################-->
+	<Header>
+		<!-- navigator Start-->
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+			  <a class="navbar-brand" href="#">Harbor</a>
+			  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				  <li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="home.html">Home</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link" href="community.html">Community</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link" href="#">9-bon blog~</a>
+				  </li>
+				  <li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					  내 정보
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+					  <li><a class="dropdown-item" href="#">내 정보 수정</a></li>
+					  <li><hr class="dropdown-divider"></li>
+					  <li><a class="dropdown-item" href="#">로그아웃</a></li>
+					</ul>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link disabled">00님 환영합니다. 좀 잘쓰세요</a>
+				  </li>
+				</ul>
+				<!-- <form class="d-flex">
+				  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+				  <button class="btn btn-outline-success" type="submit">검색(구현중)</button>
+				</form> -->
+			  </div>
+			</div>
+		  </nav>
+		<!-- navigator End-->
+	</Header>
+	<!--############## Header End ################-->
+
+		<!-- breadcrumb Start -->
+		<section class="breadcrumb">
+			<div class="container">
+				<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+					<ol class="breadcrumb">
+					  <li class="breadcrumb-item"><a href="home.html">Home</a></li>
+					</ol>
+				  </nav>
+	<!-- 	
+				  <nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+					  <li class="breadcrumb-item"><a href="home.html">홈</a></li>
+					  <li class="breadcrumb-item active" aria-current="page">게시판</li>
+					</ol>
+				  </nav> -->
+			</div>
+		</section>
+		<!-- breadcrumb End -->
+
+		<!-- ######### Hero area Start ##############-->
+		<section class="carousel">
+			<div class="container">
+				<div class="row">
+					<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+						<div class="carousel-inner">
+						  <div class="carousel-item active">
+							<img src="assets/imgs/카리나.jpg" class="d-block w-100" alt="카리나.jpg">
+						  </div>
+						  <div class="carousel-item">
+							<img src="assets/imgs/윈터.jpg" class="d-block w-100" alt="윈터.jpg">
+						  </div>
+						  <div class="carousel-item">
+							<img src="assets/imgs/지젤.jpg" class="d-block w-100" alt="지젤.jpg">
+						  </div>
+						</div>
+						<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+						  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						  <span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+						  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+						  <span class="visually-hidden">Next</span>
+						</button>
+					  </div>
+				</div>
+			</div>
+		</section>
+		<!-- ######### Hero area End ##############-->
+
+
+
+	<!-- ######### intro area Start ##############-->
+	<Section class="intro">
+		<div class="container">
+			<div class="row">
+				<div class="accordion" id="accordionPanelsStayOpenExample">
+					<div class="accordion-item">
+					  <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+						  IDE Service
+						</button>
+					  </h2>
+					  <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+						<div class="accordion-body">
+						  <strong>비하버가 제공하는 웹 IDE 서비스입니다.</strong> 모든 책임은 본인한테 있습니다. 절대 책임 안집니다.
+						</div>
+					  </div>
+					</div>
+					<div class="accordion-item">
+					  <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+						  File Upload
+						</button>
+					  </h2>
+					  <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+						<div class="accordion-body">
+						  <strong>파일 업로드하려면 여기로</strong> 모든 책임은 본인한테 있습니다. 절대 책임 안집니다.
+						</div>
+					  </div>
+					</div>
+					<div class="accordion-item">
+					  <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+						  Logout??
+						</button>
+					  </h2>
+					  <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+						<div class="accordion-body">
+						  <strong>나가라.</strong> 제발 나가라..
+						</div>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</Section>
+	<!-- ######### intro area End ##############-->
+
+
+
+
+
+	<!-- ############## Footer Start ################-->
+	<footer>
+		<div class="card text-center">
+			<div class="card-body">
+			  <h5 class="card-title my-3">Special title treatment</h5>
+			  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+			  <p class="card-text mt-5">Made by 구본현과 아이들,,</p>
+			  <p class="card-text">Copyright &copy; <script>document.write(new Date().getFullYear());</script> All right reserved.</p>
+			</div>
+		  </div>
+	</footer>
+	<!-- ############## Footer End ################-->
+	<!-- <h2>홈</h2>
+	<img src = "image/ka.jpg" alt =""/>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-4 b">이영우
+				<img src = "image/ka.jpg" alt =""/>
+			</div>
+			<div class="col-md-4 b">이영우
+				<img src = "image/ka.jpg" alt =""/>
+			</div>
+			<div class="col-md-4 b" >이영우
+				<img src = "image/ka.jpg" alt =""/>
+			</div>
+		</div>
+	<a href= "{{url_for('ide')}}">ide</a><br>
+	<a href= "{{url_for('file_setting')}}">file_setting</a><br>
+	<a href= "{{url_for('logout')}}">logout</a><br> -->
+</body>
+</html>
