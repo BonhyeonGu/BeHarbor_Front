@@ -69,6 +69,12 @@ def ide():
 	url = 'http://' + Secret.ip_addr + str(Secret.ide_port + int(session['no']))
 	return redirect(url)
 
+#css 테스트용 주소/ 개발할 때 주소 뒤에 /testt 붙여서 접속하면 따로 로그인할 필요없어요
+#테스트할 파일을 바꾸고 싶으면 return 템플릿에서 community.html 대신 적용할 파일 적어주면 됩니다.
+@app.route("/testt")
+def testt():
+	return render_template('community.html')
+
 @app.route("/file_setting")
 def file_setting():
 	if not 'no' in session:
