@@ -1,48 +1,33 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>파일 세팅</title>
-</head>
-<body>
-	총 사용량 : {{use}}byte
-	<table border = "1">
-		<tr><th>이름</th><th>수정날짜</th></tr>
-		{% for i in range(names|length) %}
-		<tr><td>{{names[i]}}</td><td>{{dates_edit[i]}}</td></tr>
-		{% endfor %}
-	</table>
-	<form action="/upload_back" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" />
-        <input type="submit" />
-    </form>
-	<a href="{{url_for('home')}}">홈화면</a>
-</body>
-</html> -->
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <title>파일 세팅</title>
-    <link rel="stylesheet" href="file setting.css">
+    <link rel="stylesheet" href="file_setting.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/file_setting.css')}}">
 </head>
 
 <body>
-    총 사용량 : {{use}}byte
-    <table border="1">
-        <tr>
-            <th>이름</th>
-            <th>수정날짜</th>
-        </tr>
-        {% for i in range(names|length) %}
-        <tr>
-            <td>{{names[i]}}</td>
-            <td>{{dates_edit[i]}}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <!-- ----------------- html ----------------- -->
+
+    <!-- <span class="total_use">총 사용량 : {{use}}byte</span> -->
+    <div class ="tablebox">
+        <!-- <caption class="total_use">총 사용량 : {{use}}byte</caption> -->
+        <span class="total_use">총 사용량 : {{use}}byte</span>
+        <table border="1">
+            <tr>
+                <th>이름</th>
+                <th>수정날짜</th>
+            </tr>
+            {% for i in range(names|length) %}
+            <tr>
+                <td>{{names[i]}}</td>
+                <td>{{dates_edit[i]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <!--— ———————— html ———————— —————— -->
     <form action="/upload_back" method="POST" enctype="multipart/form-data">
         <div class="filebox">
             <input class="upload-name" value="choose" disabled="disabled">
@@ -68,6 +53,6 @@
         }
     </style>
 </body>
-<!-- ----------------- html ----------------- -->
+<!--———————— ———————— html ———————— ————————-->
 
 </html>
