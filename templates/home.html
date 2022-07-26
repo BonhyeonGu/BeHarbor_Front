@@ -20,49 +20,15 @@
         <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
     </head>
     <body>
-        <script>
-
-      var tag = document.createElement('script');
-
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-      var player;
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-          height: '200',
-          //디폴트 360,640임 ㅋㅋㅋ
-          width: '350',
-          videoId: 'dYRITmpFbJ4',
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-      }
-
-      function onPlayerReady(event) {
-        event.target.playVideo();
-      }
-
-      var done = false;
-      function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);
-          done = true;
-        }
-      }
-      function stopVideo() {
-        player.stopVideo();
-      }
-        </script>
         <!-- css연동(CDN) -->
 	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
 	    crossorigin="anonymous"></script>
 	    <!-- css연동(직접) -->
 	    <script src="assets/js/bootstrap.js"></script>
 	    <script src="assets/js/main.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
@@ -79,7 +45,136 @@
                 </div>
             </div>
         </nav>
- 
+
+        <script>
+            // 변경된 사항 : 일단 슬라이드 안에 사진, 영상을 합쳐서 넣어봤음.
+            // 그리고 슬라이드에서 시간이 지나면 자동으로 넘어감(영상 재생 중 영상이 끝나지도 않았는데 자동으로 넘어감)
+            // 현재 interval을 false로 줘서 기능을 제거해서 영상이 끝나기 전에 넘어가지 않게 해놨음.
+            // 근데 이게 사진도 안넘어가서 문제 + 영상이 끝나도 안넘어감
+            // 그래서 첫 화면이 사진일 때 자기가 ">" 이 버튼을 눌르지 않는 이상 뒤에 영상이 있는지 없는지를 모름
+            // 그리고 영상이 끝나면 자기가 넘겨야댐. 근데 애들이 넘길까 싶긴함..  ㅎㅎ..
+
+            const videos = []
+            const tag = document.createElement("script")
+            const firstScriptTag = document.getElementsByTagName("script")[0]
+            tag.src = "https://www.youtube.com/iframe_api"
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+            function onYouTubeIframeAPIReady() {
+              const slides = Array.from(document.querySelectorAll(".carousel-item"))
+              slides.forEach((slide, index) => {
+                const video = slide.querySelector(".video-player")
+                if (video && video.dataset) {
+                  const player = createPlayer({
+                    id: video.id,
+                    videoId: video.dataset.videoId,
+                  })
+                  videos.push({ player, index })
+                }
+              })
+            }
+            //$(".carousel").carousel({ interval:10000}); // 이걸 넣어서 슬라이드 시간 조절을 하는데 뭐지 ,,? 먹지를 않음,,
+            function createPlayer(playerInfo) {
+              return new YT.Player(playerInfo.id, {
+                videoId: playerInfo.videoId,
+                playerVars: {
+                  showinfo: 0,
+                },
+                events: {
+                  'onStateChange': onPlayerStateChange
+                  }
+              })
+            }
+            function onPlayerStateChange(event) {
+                if(event.data === 0) $('.carousel').carousel();
+                else $('.carousel').carousel('pause');
+                }
+            function theBigPause() {
+              videos.map(video => video.player.pauseVideo())
+            }
+            $(function () {
+              $(".carousel").on("slide.bs.carousel", function (e) {
+                theBigPause()
+                const next = $(e.relatedTarget).index()
+                const video = videos.filter(v => v.index === next)[0]
+                if (video) {
+                  video.player.playVideo();
+                }
+              })
+            })
+        </script>
+        <div class="container contenedor-slide">
+            <div class="row">
+                <div class="col-xs-12 col-md-8">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
+                        <!-- 슬라이드 시간 조절. 이 부분을 false로 줌-->
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <!-- 이미지 일때 -->
+                                <img class="d-block w-100" src="{{ url_for('static', filename = 'image/karina.jpg') }}"
+                                    alt="First slide" />
+                            </div>
+                            <div class="carousel-item">
+                                <!-- 영상 일때 -->
+                                <div class="carousel-video-inner embed-responsive embed-responsive-16by9">
+                                    <div class="video-player" id="player1" data-video-id="u_nc-t4oHfw"></div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <!-- 영상 일때 -->
+                                <div class="carousel-video-inner embed-responsive embed-responsive-16by9">
+                                    <div class="video-player" id="player2" data-video-id="no_gfDbHTfE"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 버튼 문제 존재 이건 따로 말로 설명해야댐 글로 설명할 수가 없음.. -->
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <!-- 게시판 들어갈 부분-->
+                    <!-- <h3 class="font-weight-light">"Programming is a skill best acquired by practice and example rather than from books." </h1>
+                    <p align="right">Alan Mathison Turing(1912~1954)</p>                     -->
+                    <h3 class="font-weight-light">Notice</h3>
+                    <div class = "more"><a href="{{url_for('notice')}}" class = "more_text">more</a></div>
+                    <table class ="notice">
+                        <tr>
+                            <th scope="row">2022-07-26</th>
+                            <td>에스파 '걸스'로 컴백</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2022-07-25</th>
+                            <td>윈터는 이쁘당ㅎㅎ</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2022-07-24</th>
+                            <td>영우햄 왜 그래요</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2022-07-23</th>
+                            <td>아ㅏ 머 쓰지ㅎㅎㅎ</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2022-07-20</th>
+                            <td>평생 방학이었으면 좋겠다</td>
+                        </tr>
+                        <!-- <tr>
+                            <th scope="row">2022-07-23</th>
+                            <td>예시 쓰기도 어렵네</td>
+                        </tr> -->
+                    </table>
+                <!-- 게시판 테이블에는 최근 공지 5개가 적당하고 이쁜거같아요 동적으로 받아오면 좋겠는데요 -->
+                
+                </div>
+            </div>
+        </div>
+
         <!-- Page Content-->
         <!-- <div class="container px-4 px-lg-5"> -->
             <!-- Heading Row-->
@@ -128,46 +223,42 @@
                 <div class="card-body"><p class="text-black m-0">와,, 진짜</p></div>
             </div> -->
             <!-- Content Row-->
-            <div class="row gx-4 gx-lg-5">
-                <div class="col-md-4 mb-5">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h2 class="card-title">IDE-Service</h2>
-                            <p class="card-text">모든 책임은 본인에게 있습니다.</p>
+            <div class="container">
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-md-4 mb-5">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h2 class="card-title">IDE-Service</h2>
+                                <p class="card-text">모든 책임은 본인에게 있습니다.</p>
+                            </div>
+                            <div class="card-footer"><a class="btn btn-outline-primary" href="{{url_for('ide')}}">Let's go!</a>
+                            </div>
                         </div>
-                        <div class="card-footer"><a class="btn btn-outline-primary" href="{{url_for('ide')}}">Let's go!</a></div>
                     </div>
-                </div>
-                <div class="col-md-4 mb-5">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h2 class="card-title">File Upload</h2>
-                            <p class="card-text">모든 책임은 본인에게 있습니다.</p>
+                    <div class="col-md-4 mb-5">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h2 class="card-title">File Upload</h2>
+                                <p class="card-text">모든 책임은 본인에게 있습니다.</p>
+                            </div>
+                            <div class="card-footer"><a class="btn btn-outline-primary" href="{{url_for('file_setting')}}">Let's
+                                    go!</a></div>
                         </div>
-                        <div class="card-footer"><a class="btn btn-outline-primary" href="{{url_for('file_setting')}}">Let's go!</a></div>
                     </div>
-                </div>
-                <div class="col-md-4 mb-5">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h2 class="card-title">Logout</h2>
-                            <p class="card-text">모든 책임은 본인에게 있습니다.</p>
+                    <div class="col-md-4 mb-5">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h2 class="card-title">Logout</h2>
+                                <p class="card-text">모든 책임은 본인에게 있습니다.</p>
+                            </div>
+                            <div class="card-footer "><a class="btn btn-outline-primary" href="{{url_for('logout')}}">Let's go!</a>
+                            </div>
                         </div>
-                        <div class="card-footer "><a class="btn btn-outline-primary" href="{{url_for('logout')}}">Let's go!</a></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div id="player"></div>
-            <!-- <a class="btn btn-primary" href="#!">진짜 연락하기!</a> -->
-        </div>
-        <div class="col-lg-5">
-            <h3 class="font-weight-light">"Programming is a skill best acquired by practice and example rather than from books." </h1>
-            <p align="right">Alan Mathison Turing(1912~1954)</p>
-            <!-- <a class="btn btn-primary" href="#!">진짜 연락하기!</a> -->
-        </div>
        <!-- ############## Footer Start ################-->
 	    <footer>
 		    <div class="card text-center">

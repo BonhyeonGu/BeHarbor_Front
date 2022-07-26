@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700&family=Open+Sans:ital,wght@1,500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
 *{
     font-family:'Open Sans', serif;
     /* 나눔 명조를 못불러오면 serif로 대체 */
@@ -35,3 +36,37 @@ img {
     height: 400px;
     object-fit: cover;
   }
+
+table.notice{
+    border-collapse: separate;
+    border-spacing: 1px;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    margin : 20px 10px;   
+}
+table.notice th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+  }
+  table.notice td {
+    font-family: 'Noto Sans KR', sans-serif;;
+    width: 400px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+  }
+  .more{
+    text-align: right;
+  }
+  .more_text {
+	color: #333;
+	font-size: 13px;
+	text-decoration: none;
+    /* text-align: right; */
+    margin-left: 50%;
+	margin: 5px 0;
+}
