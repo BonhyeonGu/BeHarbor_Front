@@ -1,36 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/login.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/fail_login.css')}}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<title>Login failed!</title>
 	<meta charset="UTF-8">
-    <body>
-        <div class="container" id="container">
-            <div class="form-container log-in-container">
-               
-                    <h1> Fail! ;( </h1>
-                    <p>
-                    <a href="login.html">Return to login page</a>
-
-                    <!-- id의 문제인지 pw의 문제인지, 아니면 계정이 없는지에 관한 
-                    정보를 띄우고 싶었는데 이미 login-back 부분에서 걸러서 해당 페이지로 넘어오는 것 같아
-                    제가 건드릴 수가 없어 간단하게 로그인 창과 비슷하게 구현하여, 
-                    로그인 실패 화면을 만들었습니다. 아래는 id와 pw를 다시 한번 확인해달라는 문구와 계속 문제가 발생하면 
-                    서버실로 방문해달라는 안내 문구를 적었습니다.
-                    기능 구현 할 수 있는 사람이 있다면 여기에 작성하시면 됩니다.
-                    css는 동일한 login.css를 사용하고 있습니다.-->
-    
-            </div>
-            <div class="overlay-container">
-                <div class="overlay">
-                    <div class="overlay-panel overlay-right">
-                        <h1>Login Failed! Try again.</h1>
-                        <p>Please check your ID and password again. If there is a problem, please visit Dong-A University's server room.</p>
-                    </div>
+</head>
+<body>
+    <!-- 로그인 실패시 서버팀에 찾아오라는 내용으로 글자 넣음 한글로 할지 영문으로 할지는 고민 중 -->
+    <div class="container" id="container">
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-right">
+                    <h1>Login Failed! Try again.</h1>
+                    <p>Please check your ID and password again. If there is a problem, please visit Dong-A University's server room.</p>
+                    <!-- <p>학번 아이디와 비밀번호를 확인 후 재시도 해주세요.</p><p> 만약, 문제가 발생했다면 동아대학교 비하버팀을 방문해주시길 바랍니다.</p> -->
+                    <a href="{{url_for('logout')}}">Return to login page</a>
                 </div>
             </div>
         </div>
-    </body>
-</head>
-   
+    </div>
+</body>
+</html>
