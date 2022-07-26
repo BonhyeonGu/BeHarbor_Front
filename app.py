@@ -56,6 +56,12 @@ def logout():
 def fail_login():
 	return render_template('fail_login.html')
 
+@app.route("/notice")
+def notice():
+	if not 'no' in session:
+		return redirect(url_for('login'))
+	return render_template('notice.html', user_name=session['name'])
+
 @app.route("/home")
 def home():
 	if not 'no' in session:
@@ -74,7 +80,7 @@ def ide():
 #파일업로드 페이지는 적용x 아이디 정보가 필요해서,,
 @app.route("/testt")
 def testt():
-	return render_template('home.html')
+	return render_template('home_test.html')
 
 @app.route("/file_setting")
 def file_setting():
