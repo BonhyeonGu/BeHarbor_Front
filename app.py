@@ -45,6 +45,8 @@ def login_back():
 	session['name'] = q_name
 	return render_template('home.html', user_name=q_name)
 
+#생각난건데 로그인 실패 페이지 띄울때 세션 삭제하고 return하는게 더 안전한가요? 아님 그냥 해도 상관없나요
+
 @app.route("/logout")
 def logout():
 	if not 'no' in session:
@@ -80,7 +82,7 @@ def ide():
 #파일업로드 페이지는 적용x 아이디 정보가 필요해서,,
 @app.route("/testt")
 def testt():
-	return render_template('home_test.html')
+	return render_template('home.html')
 
 @app.route("/file_setting")
 def file_setting():
