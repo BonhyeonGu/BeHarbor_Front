@@ -71,9 +71,10 @@ def ide():
 
 #css 테스트용 주소/ 개발할 때 주소 뒤에 /testt 붙여서 접속하면 따로 로그인할 필요없어요
 #테스트할 파일을 바꾸고 싶으면 return 템플릿에서 community.html 대신 적용할 파일 적어주면 됩니다.
+#파일업로드 페이지는 적용x 아이디 정보가 필요해서,,
 @app.route("/testt")
 def testt():
-	return render_template('community.html')
+	return render_template('home.html')
 
 @app.route("/file_setting")
 def file_setting():
@@ -84,6 +85,7 @@ def file_setting():
 	names, dates_edit = u.outDirList(location)
 	return render_template('file_setting.html', names=names, dates_edit=dates_edit, use=u.outDirByte(location))
 
+#파일 총 사용량 오류? 제대로 용량이 안 떠요
 @app.route("/upload_back", methods=['POST'])
 def upload_back():
 	if not 'no' in session:
