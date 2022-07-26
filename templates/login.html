@@ -20,7 +20,7 @@
           혹은 해당 a태그를 제거하고 서버팀 전화번호 등 관리자 전화 번호를 작성하는 용도로 사용했으면 좋겠습니다. 
         -->
         <p>
-				<button onclick="loginCheck()">Log In</button>
+				<button type="submit" onclick="loginCheck()">Log In</button>
 			</form>
 		</div>
 		<div class="overlay-container">
@@ -40,33 +40,36 @@
 <script>
   function loginCheck(event){
     // 학번 입력여부 확인 
-    alert(check.studentNum.value);
-    if(check.studentNum!=null){
-        if(check.studentNum.value=="")
+    alert(check.id.value);
+    if(check.id!=null){
+        if(check.id.value=="")
         {
             alert("학번을 입력하지 않았습니다.")
-            check.studentNum.focus()
+            check.id.focus()
             return false;
         }
         // 학번이 비어있지 않고, 아이디 유효성을 검사한다. 
         // 학번에 숫자만 입력가능하도록 검사 
-        var studentNumCheck= /^[0-9+]{6,12}$/;
-        if(!studentNumCheck.test(check.studentNum.value))
+        var idCheck= /^[0-9+]{6,12}$/;
+        if(!idCheck.test(check.id.value))
         {
             alert("학번은 7자리 숫자만 가능합니다.")
-            check.studentNum.focus();
+            check.id.focus();
             return false;
         }
     }
       
     //비밀번호 입력여부 검사
-    if(check.pwd.vlaue="")
+    if(check.pw.vlaue="")
     {
         alert("비밀번호를 입력하지 않았습니다.")
-        check.pwd.focus();
+        check.pw.focus();
         return false;
  
     }
+
+    // 입력에 문제가 없으면 id와 pw를 넘긴다. 
+    return true; 
 }
 </script>
 </html>

@@ -32,7 +32,7 @@ def login_back():
 	sql = "SELECT EXISTS (SELECT id FROM users WHERE id = %s LIMIT 1) AS SUCCESS;"
 	cur.execute(sql, (inp_id))
 	res = cur.fetchall()[0]
-	if(res == 0):
+	if(res[0] == 0):
 		return redirect(url_for('fail_login'))
 	sql = "SELECT no, pw, name FROM users WHERE id = %s"
 	cur.execute(sql, (inp_id))
