@@ -82,7 +82,7 @@ def ide():
 #파일업로드 페이지는 적용x 아이디 정보가 필요해서,,
 @app.route("/testt")
 def testt():
-	return render_template('home.html')
+	return render_template('file_setting.html')
 
 @app.route("/file_setting")
 def file_setting():

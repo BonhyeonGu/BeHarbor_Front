@@ -3,55 +3,31 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>파일 세팅</title>
+    <title>파일 업로드</title>
     <link rel="stylesheet" href="file_setting.css">
     <link rel="stylesheet" href="{{url_for('static',filename='css/file_setting.css')}}">
 </head>
 
 <body>
-
+    <h2>file upload</h2>
     <!-- <span class="total_use">총 사용량 : {{use}}byte</span> -->
     <div class ="tablebox">
         <!-- <caption class="total_use">총 사용량 : {{use}}byte</caption> -->
-        <span class="total_use">총 사용량 : {{use}}byte</span>
-        <table border="1">
-            <tr>
-                <th>이름</th>
-                <th>수정날짜</th>
-            </tr>
+        <!-- <span class="total_use">총 사용량 : {{use}}byte</span> -->
+        <table class = "list">
             {% for i in range(names|length) %}
             <tr>
+                <th scope="row">{{i+1}}</td>
                 <td>{{names[i]}}</td>
                 <td>{{dates_edit[i]}}</td>
             </tr>
             {% endfor %}
         </table>
     </div>
-    <!--— ———————— html ———————— —————— -->
     <form action="/upload_back" method="POST" enctype="multipart/form-data">
-        <div class="filebox">
-            <input class="upload-name" value="choose" disabled="disabled">
-            <label for="file">파일선택</label>
-            <input type="file" id="file" class="upload-hidden" />
-            
-        </div>
-        <input id="sm" type="submit" />
+        <input type = "file" name = "file" class ="upload-name"/>
+        <input type="submit" value="업로드"/>
     </form>
-    <style>
-        #sm {
-            display: inline-block;
-            padding: .5em .75em;
-            color: white;
-            font-size: inherit;
-            line-height: normal;
-            vertical-align: middle;
-            background-color: #136dae;
-            cursor: pointer;
-            border: 1px solid #ebebeb;
-            border-bottom-color: #e2e2e2;
-            border-radius: .25em;
-        }
-    </style>
 </body>
 <!--———————— ———————— html ———————— ————————-->
 
