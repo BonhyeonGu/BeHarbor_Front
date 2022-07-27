@@ -32,7 +32,8 @@
 			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				  <li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="home.html">Home</a>
+					<a class="nav-link active" aria-current="page" href="{{url_for('home')}}">Home</a>
+					<!-- <a class="nav-link active" href="{{url_for('home')}}">Home</a> -->
 				  </li>
 				  <li class="nav-item">
 					<a class="nav-link" href="#">Community</a>
@@ -69,8 +70,8 @@
 			<div class="container">
 				<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 					<ol class="breadcrumb">
-					  <li class="breadcrumb-item"><a href="home.html">Home</a></li>
-					  <li class="breadcrumb-item"><a href="community.html">Community</a></li>
+					  <li class="breadcrumb-item"><a href="{{url_for('home')}}">Home</a></li>
+					  <li class="breadcrumb-item"><a href="#">Community</a></li>
 					</ol>
 				  </nav>
 	<!-- 	
