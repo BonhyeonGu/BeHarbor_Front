@@ -2,9 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
 
-body {
+.main {
 	/* background: #f3e0e2; */
-    background: #E0ECF8;
+    /* background: #E0ECF8; */
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -45,3 +45,68 @@ table.list {
     font-family: 'Noto Sans KR', sans-serif;
     background: white;
   }
+
+  .filebox input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip:rect(0,0,0,0);
+    border: 0;
+  }
+  .filebox label {
+    display: inline-block;
+    padding: .5em .75em;
+    color:white;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color:  #136dae;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: .25em;
+    
+  }
+  .filebox .upload-name {
+      display: inline-block;
+      padding: .5em .75em;  /* label의 패딩값과 일치 */ font-size: inherit;
+      font-family: inherit;
+      line-height: normal;
+      vertical-align: middle;
+      background-color: #f5f5f5;
+      border: 1px solid #ebebeb;
+      border-bottom-color: #e2e2e2;
+      border-radius: .25em;
+      -webkit-appearance: none; /* 네이티브 외형 감추기 */
+      -moz-appearance: none;
+      appearance: none;
+    }
+    #sm {
+      display: inline-block;
+      position: fixed;
+      left: 100px;
+      bottom: 900px;
+      padding: .5em .90em;
+      color: white;
+      font-size: inherit;
+      line-height: normal;
+      vertical-align:right;
+      background-color: #136dae;
+      cursor: pointer;
+      border: 1px solid #ebebeb;
+      border-bottom-color: #e2e2e2;
+      border-radius: .25em;
+  }
+  .total_use1{
+    color: #333;
+	font-size: 14px;
+  text-align: right;
+	text-decoration: none;
+	margin: 15px 0;
+  }
+  /* input{
+    color: ;
+  } */

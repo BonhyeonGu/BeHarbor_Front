@@ -9,9 +9,47 @@
 </head>
 
 <body>
-    <a href="{{url_for('home')}}">beharbor</a>
+    <!-- css연동(CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
+    crossorigin="anonymous"></script>
+    <!-- css연동(직접) -->
+    <script src="assets/js/bootstrap.js"></script>
+    <script src="assets/js/main.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Responsive navbar-->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <div class="container px-5">
+            <a class="navbar-brand" href="{{url_for('home')}}">beHarbor</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{url_for('home')}}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">Community</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">9-bon blog~</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="main">
     <h2>file upload</h2>
+    <br>
     <!-- <span class="total_use">총 사용량 : {{use}}byte</span> -->
+    <!-- <div class ="filebox"> -->
+        <form action="/upload_back" method="POST" enctype="multipart/form-data">
+            <input type = "file" name = "file" >
+            <input type = "submit" />
+            <!-- <div class="filebox">
+                <input class="upload-name" value="choose" disabled="disabled">
+                <label for="file">파일선택</label>
+                <input type="file" name = "file" id="file" class="upload-hidden" />
+                <input type = "submit" id="sm" />
+            </div> -->
+        </form>
+    <!-- </div> -->
     <div class ="tablebox">
         <!-- <caption class="total_use">총 사용량 : {{use}}byte</caption> -->
         <!-- <span class="total_use">총 사용량 : {{use}}byte</span> -->
@@ -25,10 +63,23 @@
             {% endfor %}
         </table>
     </div>
-    <form action="/upload_back" method="POST" enctype="multipart/form-data">
-        <input type = "file" name = "file" class ="upload-name"/>
-        <input type="submit" value="업로드"/>
-    </form>
+    <span class = "total_use">총 {{use}}byte 사용</span>
+    </div>
+    <!------------------ footer -------------------->
+    <footer>
+        <div class="card text-center">
+            <div class="card-body" style="background-color: #e3f2fd;">
+            <p class="card-text mt-3">Made by Beharbor</p>
+            <p class="card-text">Copyright &copy; <script>document.write(new Date().getFullYear());</script> All right reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- ############## Footer End ################-->
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    
 </body>
 <!--———————— ———————— html ———————— ————————-->
 
