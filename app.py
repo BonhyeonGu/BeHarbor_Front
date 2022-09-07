@@ -31,15 +31,25 @@ def login():
 def login_back():
 	inp_id = request.form['id']
 	inp_pw = request.form['pw']
-	sql = "SELECT EXISTS (SELECT id FROM users WHERE id = %s LIMIT 1) AS SUCCESS;"
+	sql = "SELECT EXISTS (SELECT id FROM Student WHERE id = %s LIMIT 1) AS SUCCESS;"
 	cur.execute(sql, (inp_id))
 	res = cur.fetchall()[0]
 	if(res[0] == 0):
 		return redirect(url_for('fail_login'))
-	sql = "SELECT no, pw, name FROM users WHERE id = %s"
+	sql = "SELECT no, pw, name FROM Student WHERE id = %s"
 	cur.execute(sql, (inp_id))
 	q_no, q_pw, q_name = cur.fetchall()[0]
 	q_pw = q_pw.encode('utf-8')
+	if inp_id == '47262631':
+		if not bcrypt.checkpw(inp_pw.encode('utf-8'),q_pw):
+			return redirect(url_for('fail_login'))
+		else:
+			# session['name'] = q_name
+			session['no'] = q_no
+			session['id'] = inp_id
+			session['name'] = q_name
+			return redirect(url_for('harbor_manage_admin'))
+
 	if not bcrypt.checkpw(inp_pw.encode('utf-8'), q_pw):
 		return redirect(url_for('fail_login'))
 	session['no'] = q_no
@@ -61,11 +71,13 @@ def logout():
 def fail_login():
 	return render_template('fail_login.html')
 
-@app.route("/admin")
-def admin():
+#관리자 페이지
+@app.route("/harbor_manage_admin")
+def harbor_manage_admin():
 	if not 'no' in session:
-		return redirect(url_for('home'))
-	return render_template('admin.html')
+		return redirect(url_for('login'))
+	return render_template('admin.html', user_name = session['name'])
+
 
 #공지페이지
 @app.route("/notice")
@@ -94,7 +106,7 @@ def ide():
 #파일업로드 페이지는 적용x 아이디 정보가 필요해서,,
 @app.route("/testt")
 def testt():
-	return render_template('home.html')
+	return render_template('signup.html')
 
 #파일 업로드
 @app.route("/file_setting")
@@ -106,7 +118,6 @@ def file_setting():
 	names, dates_edit = u.outDirList(location)
 	return render_template('file_setting.html', names=names, dates_edit=dates_edit, use=u.outDirByte(location))
 
-#파일 총 사용량 오류? 제대로 용량이 안 떠요
 @app.route("/upload_back", methods=['POST'])
 def upload_back():
 	if not 'no' in session:

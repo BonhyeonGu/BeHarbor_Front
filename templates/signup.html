@@ -8,13 +8,27 @@
 </head>
 <body>
     <h2>회원 가입</h2>
-    <form action="/signup_back" method="post">
+    <!-- <form action="/signup_back" method="post">
         <p>이름 : <input type="text" id="name" name="name"></p>
         <p>학번(아이디) : <input type="text" id="id" name="id"></p>
         <p>비밀번호 : <input type="password" id="pw" name="pw"></p>
         <p>학년 : <input type="text" id="grade" name="grade"></p>
         <p>전공 : <input type="text" id="major" name="major"></p>
         <p><input type="submit" value="제출" onclick="alert('제출 완료!')" /></p>
+    </form> -->
+
+    <form action="/signup_back" method="post">
+        ID: <input type="text" id="id" name="id"><br>
+        PW: <input type="password" id ="pw" name="pw"><br>
+        이름: <input type="text" id="name" name="name"><br>
+        학년:
+        <input type="radio" id="grade" name="grade" value=1>1학년
+        <input type="radio" id="grade" name="grade" value=2>2학년    
+        <input type="radio" id="grade" name="grade" value=3>3학년
+        <input type="radio" id="grade" name="grade" value=4>4학년
+        <br>
+        전공: <input type="text" id="major" name="major"><br>
+        <input type="submit" value="꾸욱">
     </form>
 </body>
 </html>
