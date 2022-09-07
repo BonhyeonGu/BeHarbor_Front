@@ -78,6 +78,11 @@ def harbor_manage_admin():
 		return redirect(url_for('login'))
 	return render_template('admin.html', user_name = session['name'])
 
+@app.route("/kuber_url")
+def kuber_url():
+	if not 'no' in session:
+		return redirect(url_for('login'))
+	return render_template('kuber_url.html', user_name = session['name'])
 
 #공지페이지
 @app.route("/notice")
@@ -135,6 +140,8 @@ def upload_back():
 #회원가입(admin계정 페이지)
 @app.route("/signup")
 def signupFront():
+	if not 'no' in session:
+		return redirect(url_for('login'))
 	return render_template('signup.html')
 
 @app.route("/signup_back", methods=['POST'])
