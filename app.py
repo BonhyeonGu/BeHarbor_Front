@@ -19,12 +19,14 @@ def root():
 	session.clear()
 	return redirect(url_for('login'))
 
+#로그인 페이지
 @app.route("/login")
 def login():
 	if 'no' in session:
 		return redirect(url_for('home'))
 	return render_template('login.html')
 
+#로그인 페이지 sql문 수정
 @app.route("/login_back", methods=['POST'])
 def login_back():
 	inp_id = request.form['id']
@@ -43,33 +45,43 @@ def login_back():
 	session['no'] = q_no
 	session['id'] = inp_id
 	session['name'] = q_name
+	
 	return render_template('home.html', user_name=q_name)
 
 #생각난건데 로그인 실패 페이지 띄울때 세션 삭제하고 return하는게 더 안전한가요? 아님 그냥 해도 상관없나요
-
+#로그아웃(세션삭제)
 @app.route("/logout")
 def logout():
 	if not 'no' in session:
 		return redirect(url_for('home'))
 	session.clear()
 	return redirect(url_for('home'))
-
+#로그인 실패
 @app.route("/fail_login")
 def fail_login():
 	return render_template('fail_login.html')
 
+@app.route("/admin")
+def admin():
+	if not 'no' in session:
+		return redirect(url_for('home'))
+	return render_template('admin.html')
+
+#공지페이지
 @app.route("/notice")
 def notice():
 	if not 'no' in session:
 		return redirect(url_for('login'))
 	return render_template('notice.html', user_name=session['name'])
 
+#홈화면
 @app.route("/home")
 def home():
 	if not 'no' in session:
 		return redirect(url_for('login'))
 	return render_template('home.html', user_name=session['name'])
 
+#ide서비스(쿠버네티스 주피터로 변경)
 @app.route("/ide")
 def ide():
 	if not 'no' in session:
@@ -82,8 +94,9 @@ def ide():
 #파일업로드 페이지는 적용x 아이디 정보가 필요해서,,
 @app.route("/testt")
 def testt():
-	return render_template('file_setting.html')
+	return render_template('home.html')
 
+#파일 업로드
 @app.route("/file_setting")
 def file_setting():
 	if not 'no' in session:
@@ -108,6 +121,7 @@ def upload_back():
 	file.save(u.pathJoin(location, file.filename))
 	return redirect(url_for('file_setting'))
 
+#회원가입(admin계정 페이지)
 @app.route("/signup")
 def signupFront():
 	return render_template('signup.html')
