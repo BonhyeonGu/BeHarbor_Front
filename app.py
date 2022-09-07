@@ -25,10 +25,6 @@ def login():
 		return redirect(url_for('home'))
 	return render_template('login.html')
 
-##메인페이지 늘어나는거 수정
-##사진수정
-##뒤로가기 문제해결, 업로드 삭제, 링크 메뉴얼 추가
-##링크 메뉴얼 페이지 제작 필요..
 @app.route("/login_back", methods=['POST'])
 def login_back():
 	inp_id = request.form['id']
