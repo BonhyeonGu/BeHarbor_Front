@@ -117,11 +117,13 @@ def signupBack():
 	uname = request.form['name']
 	uid = request.form['id']
 	upw = request.form['pw']
-	sql = "INSERT INTO users (id, pw, name) VALUES(%s, %s, %s)"
+	ugrade = request.form['grade']
+	umajor = request.form['major']
+	sql = "INSERT INTO Student (id, pw, name, grade, major) VALUES(%s, %s, %s, %s, %s)"
 	encodeupw = bcrypt.hashpw(upw.encode('utf-8'), bcrypt.gensalt()) #encodeupw==> 암호화된 비번을 저장하는 변수
 	#c는 입력받은 로그인 비번
 	#bcryt.checkpw(c.encode('utf-8'),encodeupw)이런씩으로 확인하면 됩니당
-	cur.execute(sql,(uid, encodeupw.decode('utf-8'), uname))
+	cur.execute(sql,(uid, encodeupw.decode('utf-8'), uname, ugrade, umajor))
 	db.commit()
 	return redirect(url_for('signupFront'))
 
