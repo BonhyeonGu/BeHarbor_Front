@@ -36,9 +36,9 @@ def login_back():
 	res = cur.fetchall()[0]
 	if(res[0] == 0):
 		return redirect(url_for('fail_login'))
-	sql = "SELECT no, pw, name FROM Student WHERE id = %s"
+	sql = "SELECT no, pw, name, kubeurl FROM Student WHERE id = %s"
 	cur.execute(sql, (inp_id))
-	q_no, q_pw, q_name = cur.fetchall()[0]
+	q_no, q_pw, q_name, q_url = cur.fetchall()[0]
 	q_pw = q_pw.encode('utf-8')
 	if inp_id == '47262631':
 		if not bcrypt.checkpw(inp_pw.encode('utf-8'),q_pw):
@@ -48,6 +48,7 @@ def login_back():
 			session['no'] = q_no
 			session['id'] = inp_id
 			session['name'] = q_name
+			session['url'] = q_url
 			return redirect(url_for('harbor_manage_admin'))
 
 	if not bcrypt.checkpw(inp_pw.encode('utf-8'), q_pw):
@@ -55,8 +56,8 @@ def login_back():
 	session['no'] = q_no
 	session['id'] = inp_id
 	session['name'] = q_name
-	
-	return render_template('home.html', user_name=q_name)
+	session['url'] = q_url
+	return render_template('home.html'+q_url, user_name=q_name)
 
 #생각난건데 로그인 실패 페이지 띄울때 세션 삭제하고 return하는게 더 안전한가요? 아님 그냥 해도 상관없나요
 #로그아웃(세션삭제)
@@ -78,11 +79,11 @@ def harbor_manage_admin():
 		return redirect(url_for('login'))
 	return render_template('admin.html', user_name = session['name'])
 
-@app.route("/kuber_url")
-def kuber_url():
-	if not 'no' in session:
-		return redirect(url_for('login'))
-	return render_template('kuber_url.html', user_name = session['name'])
+@app.route("/kuber_url_back")
+def kuber_url_back():
+	return redirect(url_for('kuber_url'))
+
+
 
 #공지페이지
 @app.route("/notice")
