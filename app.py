@@ -114,7 +114,7 @@ def ide():
 #파일업로드 페이지는 적용x 아이디 정보가 필요해서,,
 @app.route("/testt")
 def testt():
-	return render_template('signup.html')
+	return render_template('home.html')
 
 #파일 업로드
 @app.route("/file_setting")
