@@ -75,11 +75,15 @@ def fail_login():
 def harbor_manage_admin():
 	if not 'no' in session:
 		return redirect(url_for('login'))
-	return render_template('admin.html', user_name = session['name'])
+	return render_template('admin.html')
+
+@app.route("/kuber_url")
+def kuber_url():
+	return render_template('kuber_url.html')
 
 @app.route("/kuber_url_back")
 def kuber_url_back():
-	return redirect(url_for('kuber_url'))
+	return (url_for('kuber_url'))
 
 
 
