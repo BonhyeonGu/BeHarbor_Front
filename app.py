@@ -57,7 +57,6 @@ def login_back():
 	session['name'] = q_name
 	return render_template('home.html', user_name=q_name)
 
-#생각난건데 로그인 실패 페이지 띄울때 세션 삭제하고 return하는게 더 안전한가요? 아님 그냥 해도 상관없나요
 #로그아웃(세션삭제)
 @app.route("/logout")
 def logout():
@@ -85,8 +84,6 @@ def kuber_url():
 def kuber_url_back():
 	return (url_for('kuber_url'))
 
-
-
 #공지페이지
 @app.route("/notice")
 def notice():
@@ -111,7 +108,6 @@ def ide():
 
 #css 테스트용 주소/ 개발할 때 주소 뒤에 /testt 붙여서 접속하면 따로 로그인할 필요없어요
 #테스트할 파일을 바꾸고 싶으면 return 템플릿에서 community.html 대신 적용할 파일 적어주면 됩니다.
-#파일업로드 페이지는 적용x 아이디 정보가 필요해서,,
 @app.route("/testt")
 def testt():
 	return render_template('home.html')
