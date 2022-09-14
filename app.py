@@ -19,7 +19,6 @@ def root():
 	session.clear()
 	return redirect(url_for('home'))
 
-
 #홈화면
 @app.route("/home")
 def home():
@@ -28,8 +27,6 @@ def home():
 #로그인 페이지
 @app.route("/login")
 def login():
-	# if 'no' in session:
-	# 	return redirect(url_for('home'))
 	return render_template('login.html')
 
 #로그인 페이지 sql문 수정
@@ -50,7 +47,6 @@ def login_back():
 		if not bcrypt.checkpw(inp_pw.encode('utf-8'),q_pw):
 			return redirect(url_for('fail_login'))
 		else:
-			# session['name'] = q_name
 			session['no'] = q_no
 			session['id'] = inp_id
 			session['name'] = q_name
@@ -76,13 +72,16 @@ def logout():
 def fail_login():
 	return render_template('fail_login.html')
 
-#관리자 페이지
+#관리자 페이지//관리자 계정만 로그인 가능
 @app.route("/harbor_manage_admin")
 def harbor_manage_admin():
 	if not 'no' in session:
 		return redirect(url_for('login'))
+	if session['id'] != "47262631":
+		return redirect(url_for('login'))
 	return render_template('admin.html')
 
+#쿠버네티스 서비스 페이지 
 @app.route("/kuber_url")
 def kuber_url():
 	return render_template('kuber_url.html')
@@ -96,7 +95,16 @@ def kuber_url_back():
 def notice():
 	return render_template('notice.html')
 
-#ide서비스(쿠버네티스 주피터로 변경)
+#공지 관리 페이지(관리자 전용 페이지)
+@app.route("/notice_admin")
+def notice_admin():
+	if not 'no' in session:
+		return redirect(url_for('login'))
+	if session['id'] != '47262631':
+		return redirect(url_for('login')) 
+	return render_template('notice_admin.html')
+
+#ide서비스 페이지(현재는 서비스 안됨)
 @app.route("/ide")
 def ide():
 	if not 'no' in session:
@@ -110,7 +118,29 @@ def ide():
 def testt():
 	return render_template('t.html')
 
-#파일 업로드
+#회원가입(admin계정 페이지)
+@app.route("/signup")
+def signup():
+	if not 'no' in session:
+		return redirect(url_for('login'))
+	return render_template('signup.html')
+
+@app.route("/signup_back", methods=['POST'])
+def signupBack():
+	uname = request.form['name']
+	uid = request.form['id']
+	upw = request.form['pw']
+	ugrade = request.form['grade']
+	umajor = request.form['major']
+	sql = "INSERT INTO Student (id, pw, name, grade, major) VALUES(%s, %s, %s, %s, %s)"
+	encodeupw = bcrypt.hashpw(upw.encode('utf-8'), bcrypt.gensalt()) #encodeupw==> 암호화된 비번을 저장하는 변수
+	#c는 입력받은 로그인 비번
+	#bcryt.checkpw(c.encode('utf-8'),encodeupw)이런씩으로 확인하면 됩니당
+	cur.execute(sql,(uid, encodeupw.decode('utf-8'), uname, ugrade, umajor))
+	db.commit()
+	return redirect(url_for('signupFront'))
+
+#파일 업로드(서비스 미정)
 @app.route("/file_setting")
 def file_setting():
 	if not 'no' in session:
@@ -134,27 +164,6 @@ def upload_back():
 	file.save(u.pathJoin(location, file.filename))
 	return redirect(url_for('file_setting'))
 
-#회원가입(admin계정 페이지)
-@app.route("/signup")
-def signup():
-	if not 'no' in session:
-		return redirect(url_for('login'))
-	return render_template('signup.html')
-
-@app.route("/signup_back", methods=['POST'])
-def signupBack():
-	uname = request.form['name']
-	uid = request.form['id']
-	upw = request.form['pw']
-	ugrade = request.form['grade']
-	umajor = request.form['major']
-	sql = "INSERT INTO Student (id, pw, name, grade, major) VALUES(%s, %s, %s, %s, %s)"
-	encodeupw = bcrypt.hashpw(upw.encode('utf-8'), bcrypt.gensalt()) #encodeupw==> 암호화된 비번을 저장하는 변수
-	#c는 입력받은 로그인 비번
-	#bcryt.checkpw(c.encode('utf-8'),encodeupw)이런씩으로 확인하면 됩니당
-	cur.execute(sql,(uid, encodeupw.decode('utf-8'), uname, ugrade, umajor))
-	db.commit()
-	return redirect(url_for('signupFront'))
 
 if __name__ == "__main__":
 	app.debug = True
