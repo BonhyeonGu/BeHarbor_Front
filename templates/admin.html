@@ -7,10 +7,13 @@
     <title>관리자 홈</title>
 </head>
 <body>
-    <a href="http://127.0.0.1:5000/signup">회원가입</a><br>
+    <a href="{{url_for('signup')}}">회원가입</a><br>
     <a href="#">공지관리</a><br>
     <a href="{{url_for('kuber_url')}}">쿠버네티스 매핑</a>
-    <br><br>
+    <br>
+
+    <br>
+
 
     <a href="{{url_for('logout')}}">관리자계정 로그아웃</a>
 

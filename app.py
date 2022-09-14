@@ -17,13 +17,19 @@ app.config['UPLOAD_FOLDER'] = Secret.workspace
 @app.route("/")
 def root():
 	session.clear()
-	return redirect(url_for('login'))
+	return redirect(url_for('home'))
+
+
+#홈화면
+@app.route("/home")
+def home():
+	return render_template('home.html')
 
 #로그인 페이지
 @app.route("/login")
 def login():
-	if 'no' in session:
-		return redirect(url_for('home'))
+	# if 'no' in session:
+	# 	return redirect(url_for('home'))
 	return render_template('login.html')
 
 #로그인 페이지 sql문 수정
@@ -64,6 +70,7 @@ def logout():
 		return redirect(url_for('home'))
 	session.clear()
 	return redirect(url_for('home'))
+
 #로그인 실패
 @app.route("/fail_login")
 def fail_login():
@@ -87,16 +94,7 @@ def kuber_url_back():
 #공지페이지
 @app.route("/notice")
 def notice():
-	if not 'no' in session:
-		return redirect(url_for('login'))
-	return render_template('notice.html', user_name=session['name'])
-
-#홈화면
-@app.route("/home")
-def home():
-	if not 'no' in session:
-		return redirect(url_for('login'))
-	return render_template('home.html', user_name=session['name'])
+	return render_template('notice.html')
 
 #ide서비스(쿠버네티스 주피터로 변경)
 @app.route("/ide")
@@ -110,7 +108,7 @@ def ide():
 #테스트할 파일을 바꾸고 싶으면 return 템플릿에서 community.html 대신 적용할 파일 적어주면 됩니다.
 @app.route("/testt")
 def testt():
-	return render_template('home.html')
+	return render_template('t.html')
 
 #파일 업로드
 @app.route("/file_setting")
@@ -138,7 +136,7 @@ def upload_back():
 
 #회원가입(admin계정 페이지)
 @app.route("/signup")
-def signupFront():
+def signup():
 	if not 'no' in session:
 		return redirect(url_for('login'))
 	return render_template('signup.html')
