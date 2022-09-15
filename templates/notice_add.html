@@ -1,4 +1,3 @@
-<!-- 공지 관리 버튼 추가 수정 예정 -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -71,82 +70,29 @@
 			<div class="container">
 				<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 					<ol class="breadcrumb">
-					  <li class="breadcrumb-item"><a href="{{url_for('notice_add')}}">공지 추가하기</a></li>
+					  <li class="breadcrumb-item"><a href="{{url_for('home')}}">Home</a></li>
+					  <li class="breadcrumb-item"><a href="#">Community</a></li>
 					</ol>
 				  </nav>
-	<!-- 	
-				  <nav aria-label="breadcrumb">
-					<ol class="breadcrumb">
-					  <li class="breadcrumb-item"><a href="home.html">홈</a></li>
-					  <li class="breadcrumb-item active" aria-current="page">게시판</li>
-					</ol>
-				  </nav> -->
 			</div>
 		</section>
 		<!-- breadcrumb End -->
 
-		<!-- community Start -->
-		<section class="bbs">
-			<div class="container">
-				<div class="row">
-					<table class="table">
-						<thead>
-						  <tr>
-							<th scope="col">no</th>
-							<th scope="col">written by</th>
-							<th scope="col">title</th>
-							<th scope="col">date</th>
-							<th scope="col">views</th>
-						  </tr>
-						</thead>
-						<tbody>
-						  {% for i in range(notices|length) %}
-						  <tr>
-							<th scope="row">{{notices[i][0]}}</th>
-							<td>{{notices[i][1]}}</td>
-							<td><a href="" class = "communitytitle">{{notices[i][2]}}</a></td>
-							<td>{{notices[i][3]}}</td>
-							<td>425</td>
-						  </tr>
-						  {% endfor %}
-						</tbody>
-					  </table>
-			
-				</div>
-				<div class="row">
-					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-						<button class="btn btn-primary me-md-2" type="button">gogogo</button>
-					  </div>
-				</div>
-				<div class="row">
-					<nav aria-label="...">
-						<ul class="pagination justify-content-center">
-						  <li class="page-item disabled">
-							<a class="page-link">Previous</a>
-						  </li>
-						  <li class="page-item active"><a class="page-link" href="#">1</a></li>
-						  <li class="page-item" aria-current="page">
-							<a class="page-link" href="#">2</a>
-						  </li>
-						  <li class="page-item"><a class="page-link" href="#">3</a></li>
-						  <li class="page-item">
-							<a class="page-link" href="#">Next</a>
-						  </li>
-						</ul>
-					</nav>
-				</div>
-			</div>
-		</section>
-		<!-- community End -->
-
-    
+    <div class="add">
+        <form action="/notice_add_back" method="post">
+            작성자: <input type="text" id="sno" name="sno"><br>
+            공지 내용: <input type="text" id="notice" name="notice"><br>
+            <br>
+            <input type="submit" value="공지 올리기">
+        </form> 
+    </div>
 	<!-- ############## Footer Start ################-->
 	<footer>
 		<div class="card text-center">
 			<div class="card-body">
 			  <h5 class="card-title my-3">Special title treatment</h5>
 			  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-			  <p class="card-text mt-5">Made by beharbor s06-605</p>
+			  <p class="card-text mt-5">Made by 구본현과 아이들,,</p>
 			  <p class="card-text">Copyright &copy; <script>document.write(new Date().getFullYear());</script> All right reserved.</p>
 			</div>
 		  </div>

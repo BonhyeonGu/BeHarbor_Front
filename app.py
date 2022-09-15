@@ -90,10 +90,13 @@ def kuber_url():
 def kuber_url_back():
 	return (url_for('kuber_url'))
 
-#공지페이지
+#일반 공개 공지 페이지
 @app.route("/notice")
 def notice():
-	return render_template('notice.html')
+	sql = "select * from notice;"
+	cur.execute(sql)
+	notices = cur.fetchall()
+	return render_template('notice_all.html',notices = notices)
 
 #공지 관리 페이지(관리자 전용 페이지)
 @app.route("/notice_admin")
@@ -101,8 +104,32 @@ def notice_admin():
 	if not 'no' in session:
 		return redirect(url_for('login'))
 	if session['id'] != '47262631':
-		return redirect(url_for('login')) 
-	return render_template('notice_admin.html')
+		return redirect(url_for('login'))
+	sql = "select * from notice;"
+	#no, sno, notice, join_date
+	cur.execute(sql)
+	notices = cur.fetchall()
+	return render_template('notice_admin.html',notices = notices)
+
+#공지 추가
+@app.route('/notice_add')
+def notice_add():
+	if not 'no' in session:
+		return redirect(url_for('login'))
+	if session['id'] != '47262631':
+		return redirect(url_for('login'))
+	return render_template('notice_add.html')
+
+#공지 추가 벡	
+@app.route('/notice_add_back',methods=['POST'])
+def notice_add_back():
+	sno = request.form['sno']
+	notice = request.form['notice']
+	sql = "INSERT INTO notice (sno, notice) VALUES(%s, %s)"
+	cur.execute(sql,(sno,notice))
+	db.commit()
+	#공지 추가 끝나면 다시 공지 관리자페이지로 넘기기
+	return redirect(url_for('notice_admin'))
 
 #ide서비스 페이지(현재는 서비스 안됨)
 @app.route("/ide")
