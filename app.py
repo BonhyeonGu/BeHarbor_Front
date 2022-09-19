@@ -29,7 +29,6 @@ def home():
 def login():
 	return render_template('login.html')
 
-#로그인 페이지 sql문 수정
 @app.route("/login_back", methods=['POST'])
 def login_back():
 	inp_id = request.form['id']
@@ -111,7 +110,7 @@ def notice_admin():
 	notices = cur.fetchall()
 	return render_template('notice_admin.html',notices = notices)
 
-#공지 추가
+#공지 추가(관리자 전용 페이지)
 @app.route('/notice_add')
 def notice_add():
 	if not 'no' in session:
@@ -120,15 +119,19 @@ def notice_add():
 		return redirect(url_for('login'))
 	return render_template('notice_add.html')
 
-#공지 추가 벡	
+
+# select s.name
+# from student s, notice n
+# where n.sno = s.id And n.sno = '1111';
 @app.route('/notice_add_back',methods=['POST'])
 def notice_add_back():
+	# sql = "SELECT s.id FROM Student s, notice n WHERE n.sno = s.id And n.sno = '1111';"
 	sno = request.form['sno']
 	notice = request.form['notice']
-	sql = "INSERT INTO notice (sno, notice) VALUES(%s, %s)"
-	cur.execute(sql,(sno,notice))
+	headline = request.form['headline']
+	sql = "INSERT INTO notice (sno,notice) VALUES(%s, %s)"
+	cur.execute(sql,(sno, notice))
 	db.commit()
-	#공지 추가 끝나면 다시 공지 관리자페이지로 넘기기
 	return redirect(url_for('notice_admin'))
 
 #ide서비스 페이지(현재는 서비스 안됨)
@@ -165,7 +168,7 @@ def signupBack():
 	#bcryt.checkpw(c.encode('utf-8'),encodeupw)이런씩으로 확인하면 됩니당
 	cur.execute(sql,(uid, encodeupw.decode('utf-8'), uname, ugrade, umajor))
 	db.commit()
-	return redirect(url_for('signupFront'))
+	return redirect(url_for('signup'))
 
 #파일 업로드(서비스 미정)
 @app.route("/file_setting")

@@ -36,7 +36,7 @@
 					<!-- <a class="nav-link active" href="{{url_for('home')}}">Home</a> -->
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="#">Community</a>
+					<a class="nav-link" href="{{url_for('logout')}}">log_out</a>
 				  </li>
 				  <li class="nav-item">
 					<a class="nav-link" href="#">9-bon blog~</a>
@@ -52,7 +52,7 @@
 					</ul>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link disabled">00님 환영합니다. 좀 잘쓰세요</a>
+					<a class="nav-link disabled">관리자님 환영합니다. 좀 잘쓰세요</a>
 				  </li>
 				</ul>
 				<form class="d-flex">
@@ -71,7 +71,7 @@
 				<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 					<ol class="breadcrumb">
 					  <li class="breadcrumb-item"><a href="{{url_for('home')}}">Home</a></li>
-					  <li class="breadcrumb-item"><a href="#">Community</a></li>
+					  <li class="breadcrumb-item"><a href="{{url_for('harbor_manage_admin')}}">Community</a></li>
 					</ol>
 				  </nav>
 			</div>
@@ -80,8 +80,9 @@
 
     <div class="add">
         <form action="/notice_add_back" method="post">
-            작성자: <input type="text" id="sno" name="sno"><br>
-            공지 내용: <input type="text" id="notice" name="notice"><br>
+			작성자 id: <input type="text" id="sno" name="sno"><br>
+            제목: <input type="text" id="headline" name="headline"><br>
+			공지 내용: <input type="text" id="notice" name="notice"><br>
             <br>
             <input type="submit" value="공지 올리기">
         </form> 
