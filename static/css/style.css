@@ -7,12 +7,13 @@
 * Twitter: https://twitter.com/Untree_co
 * Facebook: https://web.facebook.com/Untree.co/
 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200&display=swap');
 body {
   font-family: "Crimson Text", serif;
   line-height: 1.5;
   font-size: 15px;
   color: #000000;
-  background: #dee7f9; }
+  background: #b9d0ff; }
   body:before {
     content: "";
     position: fixed;
@@ -575,6 +576,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
             -ms-transform: translateY(100%);
             transform: translateY(100%); }
   .custom-hero .sub-text {
+    font-family: 'Noto Serif KR', serif;
     font-size: 18px; }
 
 .site-section, .section, .section-2, .section-4 {
