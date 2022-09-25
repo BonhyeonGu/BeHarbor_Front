@@ -1,0 +1,49 @@
+$flaticon-font: "flaticon";
+
+@font-face {
+    font-family: $flaticon-font;
+    src: url("./flaticon.ttf?09a74f20e0694c25f2dc454659f5b1e4") format("truetype"),
+url("./flaticon.woff?09a74f20e0694c25f2dc454659f5b1e4") format("woff"),
+url("./flaticon.woff2?09a74f20e0694c25f2dc454659f5b1e4") format("woff2"),
+url("./flaticon.eot?09a74f20e0694c25f2dc454659f5b1e4#iefix") format("embedded-opentype"),
+url("./flaticon.svg?09a74f20e0694c25f2dc454659f5b1e4#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$flaticon-map: (
+    "chat-comment-oval-speech-bubble-with-text-lines": "\f101",
+    "weekly-calendar-outline-event-interface-symbol": "\f102",
+    "copy-two-paper-sheets-interface-symbol": "\f103",
+    "cube-of-notes-stack": "\f104",
+    "winds-lines-weather-symbol": "\f105",
+    "big-map-placeholder-outlined-symbol-of-interface": "\f106",
+);
+
+.flaticon-chat-comment-oval-speech-bubble-with-text-lines:before {
+    content: map-get($flaticon-map, "chat-comment-oval-speech-bubble-with-text-lines");
+}
+.flaticon-weekly-calendar-outline-event-interface-symbol:before {
+    content: map-get($flaticon-map, "weekly-calendar-outline-event-interface-symbol");
+}
+.flaticon-copy-two-paper-sheets-interface-symbol:before {
+    content: map-get($flaticon-map, "copy-two-paper-sheets-interface-symbol");
+}
+.flaticon-cube-of-notes-stack:before {
+    content: map-get($flaticon-map, "cube-of-notes-stack");
+}
+.flaticon-winds-lines-weather-symbol:before {
+    content: map-get($flaticon-map, "winds-lines-weather-symbol");
+}
+.flaticon-big-map-placeholder-outlined-symbol-of-interface:before {
+    content: map-get($flaticon-map, "big-map-placeholder-outlined-symbol-of-interface");
+}
