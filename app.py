@@ -92,7 +92,7 @@ def kuber_url_back():
 #일반 공개 공지 페이지
 @app.route("/notice")
 def notice():
-	sql = "select no,sno, headline, join_date from notice;"
+	sql = "select n.no, s.name, n.headline, n.join_date from Student s, Notice n where s.id = n.sno"
 	cur.execute(sql)
 	notices = cur.fetchall()
 	return render_template('notice_all_t.html',notices = notices)
@@ -104,7 +104,7 @@ def notice_admin():
 		return redirect(url_for('login'))
 	if session['id'] != '47262631':
 		return redirect(url_for('login'))
-	sql = "select * from notice;"
+	sql = "select * from Notice;"
 	#no, sno, notice, join_date
 	cur.execute(sql)
 	notices = cur.fetchall()
@@ -119,18 +119,24 @@ def notice_add():
 		return redirect(url_for('login'))
 	return render_template('notice_add.html')
 
-
-# select s.name
-# from student s, notice n
-# where n.sno = s.id And n.sno = '1111';
 @app.route('/notice_add_back',methods=['POST'])
 def notice_add_back():
 	# sql = "SELECT s.id FROM Student s, notice n WHERE n.sno = s.id And n.sno = '1111';"
 	sno = request.form['sno']
 	notice = request.form['notice']
 	headline = request.form['headline']
-	sql = "INSERT INTO notice (sno,notice) VALUES(%s, %s)"
-	cur.execute(sql,(sno, notice))
+	sql = "INSERT INTO Notice (sno, headline, notice) VALUES(%s,%s,%s)"
+	cur.execute(sql,(sno,headline, notice))
+	db.commit()
+	return redirect(url_for('notice_admin'))
+
+
+@app.route('/notice_del_back',methods=['POST'])
+def notice_del_back():
+	no = request.form['no']
+	# sql = "INSERT INTO Notice (sno, headline, notice) VALUES(%s,%s,%s)"
+	sql = "DELETE FROM Notice where no = %s"
+	cur.execute(sql,(no))
 	db.commit()
 	return redirect(url_for('notice_admin'))
 
@@ -146,13 +152,15 @@ def ide():
 #테스트할 파일을 바꾸고 싶으면 return 템플릿에서 community.html 대신 적용할 파일 적어주면 됩니다.
 @app.route("/testt")
 def testt():
-	return render_template('notice_all_t.html')
+	return render_template('home_test_YH.html')
 
 #회원가입(admin계정 페이지)
 @app.route("/signup")
 def signup():
 	if not 'no' in session:
 		return redirect(url_for('login'))
+	if session['id'] != '47262631':
+		return redirect(url_for('login'))	
 	return render_template('signup.html')
 
 @app.route("/signup_back", methods=['POST'])
