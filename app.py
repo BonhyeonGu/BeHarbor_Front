@@ -95,7 +95,7 @@ def notice():
 	sql = "select n.no, s.name, n.headline, n.join_date from Student s, Notice n where s.id = n.sno"
 	cur.execute(sql)
 	notices = cur.fetchall()
-	return render_template('notice_all_t.html',notices = notices)
+	return render_template('notice_all.html',notices = notices)
 
 #공지 관리 페이지(관리자 전용 페이지)
 @app.route("/notice_admin")
@@ -152,7 +152,7 @@ def ide():
 #테스트할 파일을 바꾸고 싶으면 return 템플릿에서 community.html 대신 적용할 파일 적어주면 됩니다.
 @app.route("/testt")
 def testt():
-	return render_template('home_test_YH.html')
+	return render_template('home_test.html')
 
 #회원가입(admin계정 페이지)
 @app.route("/signup")

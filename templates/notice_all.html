@@ -28,7 +28,11 @@
   <link rel="stylesheet" href="static/css/jquery.fancybox.min.css">
   <link rel="stylesheet" href="static/css/aos.css">
   <link rel="stylesheet" href="static/css/style.css">
-
+  <script>
+    function alert_event(){
+      alert('s06-605호로 오세요')
+    }
+  </script>
   <title>공지</title>
 </head>
 <body>
@@ -46,7 +50,7 @@
   <nav class="site-nav">
     <div class="container">
       <div class="site-navigation">
-        <a href="index.html" class="logo float-left m-0">BeHarbor <span class="text-primary">.</span></a>
+        <a href="{{url_for('home')}}" class="logo float-left m-0">BeHarbor <span class="text-primary">.</span></a>
 
         <ul class="js-clone-nav d-none d-lg-inline-noone text-left site-menu">
           <li><a href="{{url_for('home')}}">Home</a></li>
@@ -61,11 +65,11 @@
           </li>
           {% if not 'no' in session %}
 
-          <li><a href="{{url_for('login')}}">로그인</a></li>
+          <li><a href="{{url_for('login')}}">log_in</a></li>
           {% else %}
-          <li><a href="{{url_for('logout')}}">로그아웃</a></li>
+          <li><a href="{{url_for('logout')}}">log_out</a></li>
           {% endif %}
-          <li class="active"><a href="contact.html">Contact Us</a></li>
+          <li class="active"><a href="contact.html" onclick="alert_event()">Contact Us</a></li>
         </ul>
 
         <a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-block" data-toggle="collapse" data-target="#main-navbar">
