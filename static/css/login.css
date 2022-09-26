@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200&display=swap');
 * {
 	box-sizing: border-box;
 }
 
 body {
 	/* background: #f3e0e2; */
-    background: #E0ECF8;
+    background: #87bbeb;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -42,8 +42,8 @@ button {
 	border-radius: 20px;
 	/* border: 1px solid #FF4B2B;
 	background-color: #FF4B2B; */
-    border: 1px solid #81BEF7;
-	background-color: #81BEF7;
+    border: 1px solid #87bbeb;
+	background-color: #87bbeb;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -102,16 +102,16 @@ input {
 	left: 50%;
 	width: 50%;
 	height: 100%;
+	font-family: 'Noto Serif KR', serif;
 }
-
 
 .overlay {
 	/* background: #FF416C;
 	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
 	background: linear-gradient(to right, #FF4B2B, #FF416C); */
-    background: #81BEF7;
-	background: -webkit-linear-gradient(to right, #81BEF7, #81BEF7);
-	background: linear-gradient(to right, #81BEF7, #81BEF7);
+    background: #87bbeb;
+	background: -webkit-linear-gradient(to right, #87bbeb, #87bbeb);
+	background: linear-gradient(to right, #87bbeb, #87bbeb);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;

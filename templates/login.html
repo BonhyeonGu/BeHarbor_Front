@@ -3,7 +3,12 @@
 <head>
 	<link rel="stylesheet" href="{{url_for('static',filename='css/login.css')}}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<title>Coder Login</title>
+	<title>Login</title>
+  <script>
+    function alert_event(){
+      alert('s06-605로 오세요')
+    }
+  </script>
 </head>
 <body>
 	<div class="container" id="container">
@@ -14,7 +19,7 @@
 				<p>
 				<input type="text" id="id" name="id" maxlength="8" placeholder="아이디" />
 				<input type="password" id="pw" name="pw" placeholder="비밀번호" /> <span>
-				<a href="#">Do you need any help?</a> 
+				<a href="#" onclick="alert_event()">Do you need any help?</a> 
         <!-- 
           해당 부분은 고객 센터와 같은 링크로 서버팀 쪽 채팅으로 연결하는 기능을 했으면 좋겠다는 생각을 해보았습니다.
           혹은 해당 a태그를 제거하고 서버팀 전화번호 등 관리자 전화 번호를 작성하는 용도로 사용했으면 좋겠습니다. 
@@ -27,7 +32,7 @@
 			<div class="overlay">
 				<div class="overlay-panel overlay-right">
 					<h1>Welcome, Coder!</h1>
-					<p>It is a web service provided by Dong-A University. If you want to use the web service, please log in.</p>
+					<p>동아대학교 컴퓨터 • AI 공학부 소프트웨어 실습 지원팀.</p>
           <!--
             해당 h1 태그에는 환영 문구를 작성하였고, 
             아래 p 태그는 해당 웹 사이트가 어떤 용도의 사이트임을 설명하기 위한 설명란처럼 구성하였음.
