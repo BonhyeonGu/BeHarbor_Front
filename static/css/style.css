@@ -580,6 +580,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     font-size: 18px; }
 
 .site-section, .section, .section-2, .section-4 {
+  font-family: 'Noto Serif KR', serif;
   padding: 100px 0; }
   @media (max-width: 991.98px) {
     .site-section, .section, .section-2, .section-4 {

@@ -34,6 +34,12 @@
     function alert_event(){
       alert('s06-605호로 오세요')
     }
+    function notice_event(){
+      window.location.href = 'http://127.0.0.1:5000/notice'
+    }
+    function youtube_event(){
+      window.location.href = 'https://www.youtube.com/channel/UCAEuOSt3IFWM1ga63-KZrLA'
+    }
   </script>
 </head>
 <body>
@@ -47,7 +53,7 @@
     <div class="site-mobile-menu-body"></div>
   </div>
 
-
+ <!-- 툴탭 -->
   <nav class="site-nav">
     <div class="container">
       <div class="site-navigation">
@@ -80,7 +86,7 @@
       </div>
     </div>
   </nav>
-
+<!-- 제목 -->
   <div class="custom-hero">
     <div class="container">
       <div class="row justify-content-center">
@@ -93,6 +99,8 @@
     </div>
   </div>
 
+
+  <!-- 사진 섹션 -->
   <div class="site-section">
     <div class="container">
       <div class="row align-items-center justify-content-around">
@@ -101,10 +109,10 @@
 
           <div >
             <div data-jarallax-element="-100" class="jarallax">
-              <h2>Minimal Design</h2>
-              <span class="d-inline-block">Minimalist Design</span>
-              <img src="static/images/img_v_2-min.jpg" alt="Image" class="img-fluid my-3 my-lg-5">
-              <p class="line-top fig-2-text mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <h2>Notice</h2>
+              <span class="d-inline-block" onclick = "notice_event()">공지사항 바로가기</span>
+              <img src="static/images/harbor_applicant.png" alt="Image" class="img-fluid my-3 my-lg-5" onclick = "notice_event()">
+              <p class="line-top fig-2-text mb-4">서버에 관련된 최신 공지를 확인하세요!</p>
             </div>
           </div>
 
@@ -112,13 +120,13 @@
         <div class="col-lg-5 mt-5">
 
           <div>
-            <h2>Minimal Watch</h2>
-            <span class="d-inline-block">Innovative Design</span>
+            <h2>Youtube</h2>
+            <span class="d-inline-block">Educational Material</span>
 
             <div  class="line me-auto mb-3 mt-3"></div>
 
-            <p class="line-top fig-2-text my-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-            <img src="static/images/img_v_1-min.jpg" alt="Image" class="img-fluid">
+            <p class="line-top fig-2-text my-4">BeHarbor가 제공하는 교육영상을 확인해보세요!</p>
+            <img src="static/images/whale.png" alt="Image" class="img-fluid" onclick = "youtube_event()">
           </div>
         </div>
       </div>
