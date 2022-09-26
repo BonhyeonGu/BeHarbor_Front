@@ -53,34 +53,26 @@
   <nav class="site-nav">
     <div class="container">
       <div class="site-navigation">
-        <a href="index.html" class="logo float-left m-0">BeHarbor <span class="text-primary">.</span></a>
+        <a href="{{url_for('home')}}" class="logo float-left m-0">BeHarbor <span class="text-primary">.</span></a>
 
         <ul class="js-clone-nav d-none d-lg-inline-noone text-left site-menu">
-          <li class="active"><a href="index.html">Home</a></li>
+          <li><a href="{{url_for('home')}}">Home</a></li>
           <li class="has-children">
             <a href="#">Pages</a>
             <ul class="dropdown">
-              <li><a href="portfolio.html">Portfolio</a></li>
-              <li><a href="blog.html">Blog</a></li>
-              <li><a href="single.html">Single</a></li>
-              <li><a href="about.html">About</a></li>
-              <li><a href="contact.html">Contact</a></li>
+              <li><a href="https://www.youtube.com/channel/UCAEuOSt3IFWM1ga63-KZrLA">Youtube</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="{{url_for('notice')}}">Notice</a></li>
 
-              <li class="has-children">
-                <a href="#">Menu Two</a>
-                <ul class="dropdown">
-                  <li><a href="#">Sub Menu One</a></li>
-                  <li><a href="#">Sub Menu Two</a></li>
-                  <li><a href="#">Sub Menu Three</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Menu Three</a></li>
             </ul>
           </li>
-          <li><a href="portfolio.html">Portfolio</a></li>
-          <li><a href="elements.html">Elements</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
+          {% if not 'no' in session %}
+
+          <li><a href="{{url_for('login')}}">log_in</a></li>
+          {% else %}
+          <li><a href="{{url_for('logout')}}">log_out</a></li>
+          {% endif %}
+          <li class="active"><a href="#" onclick = "alert_event()">Contact Us</a></li>
         </ul>
 
         <a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-block" data-toggle="collapse" data-target="#main-navbar">
@@ -104,22 +96,117 @@
     </div>
   </div>
 
+  <script>
+    // 변경된 사항 : 일단 슬라이드 안에 사진, 영상을 합쳐서 넣어봤음.
+    // 그리고 슬라이드에서 시간이 지나면 자동으로 넘어감(영상 재생 중 영상이 끝나지도 않았는데 자동으로 넘어감)
+    // 현재 interval을 false로 줘서 기능을 제거해서 영상이 끝나기 전에 넘어가지 않게 해놨음.
+    // 근데 이게 사진도 안넘어가서 문제 + 영상이 끝나도 안넘어감
+    // 그래서 첫 화면이 사진일 때 자기가 ">" 이 버튼을 눌르지 않는 이상 뒤에 영상이 있는지 없는지를 모름
+    // 그리고 영상이 끝나면 자기가 넘겨야댐. 근데 애들이 넘길까 싶긴함..  ㅎㅎ..
+
+    const videos = []
+    const tag = document.createElement("script")
+    const firstScriptTag = document.getElementsByTagName("script")[0]
+    tag.src = "https://www.youtube.com/iframe_api"
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+    function onYouTubeIframeAPIReady() {
+      const slides = Array.from(document.querySelectorAll(".carousel-item"))
+      slides.forEach((slide, index) => {
+        const video = slide.querySelector(".video-player")
+        if (video && video.dataset) {
+          const player = createPlayer({
+            id: video.id,
+            videoId: video.dataset.videoId,
+          })
+          videos.push({ player, index })
+        }
+      })
+    }
+    //$(".carousel").carousel({ interval:10000}); // 이걸 넣어서 슬라이드 시간 조절을 하는데 뭐지 ,,? 먹지를 않음,,
+    function createPlayer(playerInfo) {
+      return new YT.Player(playerInfo.id, {
+        videoId: playerInfo.videoId,
+        playerVars: {
+          showinfo: 0,
+        },
+        events: {
+          'onStateChange': onPlayerStateChange
+          }
+      })
+    }
+    function onPlayerStateChange(event) {
+        if(event.data === 0) $('.carousel').carousel();
+        else $('.carousel').carousel('pause');
+        }
+    function theBigPause() {
+      videos.map(video => video.player.pauseVideo())
+    }
+    $(function () {
+      $(".carousel").on("slide.bs.carousel", function (e) {
+        theBigPause()
+        const next = $(e.relatedTarget).index()
+        const video = videos.filter(v => v.index === next)[0]
+        if (video) {
+          video.player.playVideo();
+        }
+      })
+    })
+  </script>
+
   <div class="site-section">
-    <div class="container">
+    <div class="container contenedor-slide">
       <div class="row align-items-center justify-content-around">
-
-        <div class="col-lg-4 text-center">
-
-          <div >
-            <div data-jarallax-element="-100" class="jarallax">
-              <h2>Minimal Design</h2>
-              <span class="d-inline-block">Minimalist Design</span>
-              <img src="static/images/img_v_2-min.jpg" alt="Image" class="img-fluid my-3 my-lg-5">
-              <p class="line-top fig-2-text mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+          <div class="col-xs-12 col-md-8 mt-5">
+              <h2 style="margin-left: 10px;">Team BeHarbor</h2>
+              <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
+                  <!-- 슬라이드 시간 조절. 이 부분을 false로 줌-->
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <!-- 영상 일때 -->
+                          <div class="carousel-video-inner embed-responsive embed-responsive-16by9">
+                              <div class="video-player" id="player1" data-video-id="NxcMGzTiRvI"></div>
+                          </div>
+                      </div>
+                      <div class="carousel-item">
+                          <!-- 이미지 일때 -->
+                          <img class="d-block w-100" src="{{ url_for('static', filename = 'image/test_notice.png') }}"
+                              alt="First slide" style="height: 411px;"/>
+                      </div>
+                      
+                  </div>
+                  <!-- 버튼 문제 존재 이건 따로 말로 설명해야댐 글로 설명할 수가 없음.. -->
+                  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                  </a>
+              </div>
+          </div>
+          <div class="col-lg-4 mt-5">
+            <div>
+              <h4 class="d-inline-block">Why BeHarbor?</h4>
+  
+              <div  class="line me-auto mb-3 mt-3"></div>
+  
+              <p class="line-top fig-2-text my-4">Harbor는 항구의 뜻을 가지고 있습니다. BeHarbor는 항구처럼 컨테이너를 관리하고, 정보를 수송하는 팀이 되고자 하는 의미를 담고 있습니다.</p>
+            </div>
+            <br>
+            <div>
+              <h4 class="d-inline-block">What BeHarbor do?</h4>
+  
+              <div  class="line me-auto mb-3 mt-3"></div>
+  
+              <p class="line-top fig-2-text my-4">저희 팀은 장기, 단기, 개별, 협업 프로젝트를 위한 자원할당 및 관리 서비스에 필요한 서버를 제공하고 서버 관리에 관심이 있는 학생들에게 교육 자료를 전달합니다.</p>
             </div>
           </div>
-
         </div>
+      </div>
+    <!-- <div class="container">
+      <div class="row align-items-center justify-content-around">
+
         <div class="col-lg-5 mt-5">
 
           <div>
@@ -133,14 +220,8 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
-
-
- 
-
-
-
   
   
   <div class="section">
@@ -149,12 +230,12 @@
         <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="0">
           <div class="feature-v3 d-block">
             <div class="wrap-icon">
-              <i class="flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>
+              <i class="flaticon-cube-of-notes-stack"></i>
             </div>
             <div class="text">
-              <h3>Minimal Design</h3>
+              <h3>IDE-Service</h3>
               <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text</p>
-              <p class="more"><a href="#">Read more...</a></p>
+              <p class="more"><a href="{{url_for('ide')}}">Read more...</a></p>
             </div>
           </div>
         </div>
@@ -162,12 +243,12 @@
         <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
           <div class="feature-v3 d-block">
             <div class="wrap-icon">
-              <i class="flaticon-weekly-calendar-outline-event-interface-symbol"></i>
+              <i class="flaticon-big-map-placeholder-outlined-symbol-of-interface"></i>
             </div>
             <div class="text">
-              <h3>Less is more</h3>
+              <h3>Kubernetes</h3>
               <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text</p>
-              <p class="more"><a href="#">Read more...</a></p>
+              <p class="more"><a href="{{url_for('kuber_url')}}">Read more...</a></p>
             </div>
           </div>
         </div>
@@ -178,7 +259,7 @@
               <i class="flaticon-copy-two-paper-sheets-interface-symbol"></i>
             </div>
             <div class="text">
-              <h3>Whitespaces</h3>
+              <h3>Resource Lending</h3>
               <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text</p>
               <p class="more"><a href="#">Read more...</a></p>
             </div>
