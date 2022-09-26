@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Harbor template</title>
+        <!-- jquery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.js" 
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-migrate-3.4.0.js"
+        integrity="sha256-0Nkb10Hnhm4EJZ0QDpvInc3bRp77wQIbIQmWYH3Y7Vw=" crossorigin="anonymous"></script>
+        <!-- css연동(CDN) -->
+	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	    <!-- css연동(직접) -->
+	    <link href="static/css/bootstrap.css" rel="stylesheet">
+	    <link href="static/css/style_ori.css" rel="stylesheet">
+	    <!-- favicon -->
+	    <link rel="shortcut icon" href="static/image/favicon.ico" type="image/x-icon">
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="{{url_for('static',filename='css/style_ori.css')}}">
+        <script>
+            $(function(){ 
+                $("#confirm").click(function(){
+                    modalClose();//컨펌 이벤트 처리
+                });
+                $("#modal-open").click(function(){$("#popup").css('display','flex').hide().fadeIn();});
+                $("#close").click(function(){
+                    modalClose();
+                });
+                function modalClose(){
+                    $("#popup").fadeOut();
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <!-- css연동(CDN) -->
+	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
+	    crossorigin="anonymous"></script>
+	    <!-- css연동(직접) -->
+	    <script src="assets/js/bootstrap.js"></script>
+	    <script src="assets/js/main.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+            <div class="container px-5">
+                <a class="navbar-brand" href="#!">beHarbor</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{url_for('notice')}}">Community</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{url_for('login')}}">log_in</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{url_for('logout')}}">Log_out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <script>
+            // 변경된 사항 : 일단 슬라이드 안에 사진, 영상을 합쳐서 넣어봤음.
+            // 그리고 슬라이드에서 시간이 지나면 자동으로 넘어감(영상 재생 중 영상이 끝나지도 않았는데 자동으로 넘어감)
+            // 현재 interval을 false로 줘서 기능을 제거해서 영상이 끝나기 전에 넘어가지 않게 해놨음.
+            // 근데 이게 사진도 안넘어가서 문제 + 영상이 끝나도 안넘어감
+            // 그래서 첫 화면이 사진일 때 자기가 ">" 이 버튼을 눌르지 않는 이상 뒤에 영상이 있는지 없는지를 모름
+            // 그리고 영상이 끝나면 자기가 넘겨야댐. 근데 애들이 넘길까 싶긴함..  ㅎㅎ..
+
+            const videos = []
+            const tag = document.createElement("script")
+            const firstScriptTag = document.getElementsByTagName("script")[0]
+            tag.src = "https://www.youtube.com/iframe_api"
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+            function onYouTubeIframeAPIReady() {
+              const slides = Array.from(document.querySelectorAll(".carousel-item"))
+              slides.forEach((slide, index) => {
+                const video = slide.querySelector(".video-player")
+                if (video && video.dataset) {
+                  const player = createPlayer({
+                    id: video.id,
+                    videoId: video.dataset.videoId,
+                  })
+                  videos.push({ player, index })
+                }
+              })
+            }
+            //$(".carousel").carousel({ interval:10000}); // 이걸 넣어서 슬라이드 시간 조절을 하는데 뭐지 ,,? 먹지를 않음,,
+            function createPlayer(playerInfo) {
+              return new YT.Player(playerInfo.id, {
+                videoId: playerInfo.videoId,
+                playerVars: {
+                  showinfo: 0,
+                },
+                events: {
+                  'onStateChange': onPlayerStateChange
+                  }
+              })
+            }
+            function onPlayerStateChange(event) {
+                if(event.data === 0) $('.carousel').carousel();
+                else $('.carousel').carousel('pause');
+                }
+            function theBigPause() {
+              videos.map(video => video.player.pauseVideo())
+            }
+            $(function () {
+              $(".carousel").on("slide.bs.carousel", function (e) {
+                theBigPause()
+                const next = $(e.relatedTarget).index()
+                const video = videos.filter(v => v.index === next)[0]
+                if (video) {
+                  video.player.playVideo();
+                }
+              })
+            })
+        </script>
+        <div class="container contenedor-slide">
+            <div class="row">
+                <div class="col-xs-12 col-md-8">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
+                        <!-- 슬라이드 시간 조절. 이 부분을 false로 줌-->
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <!-- 이미지 일때 -->
+                                <img class="d-block w-100" src="{{ url_for('static', filename = 'image/test_notice.png') }}"
+                                    alt="First slide" style="height: 411px;"/>
+                            </div>
+                            <div class="carousel-item">
+                                <!-- 영상 일때 -->
+                                <div class="carousel-video-inner embed-responsive embed-responsive-16by9">
+                                    <div class="video-player" id="player1" data-video-id="NxcMGzTiRvI"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 버튼 문제 존재 이건 따로 말로 설명해야댐 글로 설명할 수가 없음.. -->
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <!-- 게시판 들어갈 부분-->
+                    <!-- <h3 class="font-weight-light">"Programming is a skill best acquired by practice and example rather than from books." </h1>
+                    <p align="right">Alan Mathison Turing(1912~1954)</p>                     -->
+                    <!-- more버튼 누르면 공지사항 페이지로 넘어가게 해놨어요. 공지사항 페이지는 수정이 필요함 -->
+                    <h3 class="font-weight-light">Notice</h3>
+                    <div class = "more"><a href="{{url_for('notice')}}" class = "more_text">more</a></div>
+                   
+                   <!------------------------공지사항 게시판 ------------------------------>
+                    <table class ="notice">
+                        <tr>
+                            <th scope="row">2022-07-26</th>
+                            <td id = "modal-open">테스트</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2022-07-25</th>
+                            <td>a</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2022-07-24</th>
+                            <td>b</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2022-07-23</th>
+                            <td>c</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2022-07-20</th>
+                            <td>d</td>
+                        </tr>
+                        <!-- <tr>
+                            <th scope="row">2022-07-23</th>
+                            <td>예시 쓰기도 어렵네</td>
+                        </tr> -->
+                    </table>
+                <!-- 게시판 테이블에는 최근 공지 5개가 적당하고 이쁜거같아요 동적으로 받아오면 좋겠는데요 -->
+                
+                </div>
+            </div>
+        </div>
+
+            <div class="container">
+                <div class="row gx-4 gx-lg-5 justify-content-lg-around">
+                    <div class="col-md-4 mb-5">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h2 class="card-title">IDE-Service</h2>
+                                <p class="card-text">모든 책임은 본인에게 있습니다.</p>
+                            </div>
+                            <div class="card-footer"><a class="btn btn-outline-primary" href="{{url_for('ide')}}">Let's go!</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-4 mb-5"> -->
+                        <!-- <div class="card h-100"> -->
+                            <!-- <div class="card-body">
+                                <h2 class="card-title">File Upload</h2>
+                                <p class="card-text">테스트중.</p>
+                            </div> -->
+                            <!-- <div class="card-footer"><a class="btn btn-outline-primary" href="{{url_for('file_setting')}}">Let's
+                                    go!</a></div> -->
+                        <!-- </div>
+                    </div> -->
+                    <div class="col-md-4 mb-5">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h2 class="card-title">Logout</h2>
+                                <p class="card-text">잊지말고 부탁드립니다.</p>
+                            </div>
+                            <div class="card-footer "><a class="btn btn-outline-primary" href="{{url_for('logout')}}">Let's go!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+        
+        <!-- 모달 공지게시판 올리는 부분 -->
+        <div class ="container">
+            <div class="popup-wrap" id="popup">
+                <div class="popup">
+                  <div class="popup-head">
+                      <span class="head-title">
+                        beharbor</span>
+                  </div>
+                  <div class="popup-body">
+                    <div class="body-content">
+                      <div class="body-titlebox">
+                        <!-- 제목 작성하는 부분 -->
+                        <h1>테스트</h1>
+                      </div>
+                      <div class="body-contentbox">
+                        <p>테스트로 작성하는 문장입니다. 근데 이거 좀 비효율적인거 같은데 동적으로 공지글을 받아왔으면 좋겠어요. 서버내에 따로 공지 파일을 만드는 건 어때요?</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="popup-foot">
+                    <span class="pop-btn confirm" id="confirm">확인</span>
+                    <!-- <span class="pop-btn close" id="close">창 닫기</span> -->
+                  </div>
+                </div>
+            </div>
+        </div>
+       <!-- ############## Footer Start ################-->
+	    <footer>
+		    <div class="card text-center">
+			    <div class="card-body" style="background-color: #e3f2fd;">
+			    <p class="card-text mt-3">Made by Beharbor</p>
+			    <p class="card-text">Copyright &copy; <script>document.write(new Date().getFullYear());</script> All right reserved.</p>
+			    </div>
+		    </div>
+	    </footer>
+	    <!-- ############## Footer End ################-->
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

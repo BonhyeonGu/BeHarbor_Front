@@ -1,274 +1,649 @@
-<!DOCTYPE html>
+<!-- /*
+* Template Name: Style
+* Template Author: Untree.co
+* Tempalte URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Harbor template</title>
-        <!-- jquery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.js" 
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-migrate-3.4.0.js"
-        integrity="sha256-0Nkb10Hnhm4EJZ0QDpvInc3bRp77wQIbIQmWYH3Y7Vw=" crossorigin="anonymous"></script>
-        <!-- css연동(CDN) -->
-	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	    <!-- css연동(직접) -->
-	    <link href="static/css/bootstrap.css" rel="stylesheet">
-	    <link href="static/css/style_ori.css" rel="stylesheet">
-	    <!-- favicon -->
-	    <link rel="shortcut icon" href="static/image/favicon.ico" type="image/x-icon">
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-        <link rel="stylesheet" href="{{url_for('static',filename='css/style_ori.css')}}">
-        <script>
-            $(function(){ 
-                $("#confirm").click(function(){
-                    modalClose();//컨펌 이벤트 처리
-                });
-                $("#modal-open").click(function(){$("#popup").css('display','flex').hide().fadeIn();});
-                $("#close").click(function(){
-                    modalClose();
-                });
-                function modalClose(){
-                    $("#popup").fadeOut();
-                }
-            });
-        </script>
-    </head>
-    <body>
-        <!-- css연동(CDN) -->
-	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
-	    crossorigin="anonymous"></script>
-	    <!-- css연동(직접) -->
-	    <script src="assets/js/bootstrap.js"></script>
-	    <script src="assets/js/main.js"></script>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="shortcut icon" href="favicon.png">
 
-        <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-            <div class="container px-5">
-                <a class="navbar-brand" href="#!">beHarbor</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{url_for('notice')}}">Community</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{url_for('login')}}">log_in</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{url_for('logout')}}">Log_out</a></li>
-                    </ul>
-                </div>
+  <meta name="description" content="" />
+  <meta name="keywords" content="free template, bootstrap, bootstrap4" />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/css/animate.min.css">
+  <link rel="stylesheet" href="static/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="static/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="static/fonts/icomoon/style.css">
+  <link rel="stylesheet" href="static/fonts/feather/style.css">
+  <link rel="stylesheet" href="static/fonts/flaticon/font/flaticon.css">
+  <link rel="stylesheet" href="static/css/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="static/css/aos.css">
+  <link rel="stylesheet" href="static/css/style.css">
+
+  <title>BeHarbor 홈페이지</title>
+  <script>
+    function alert_event(){
+      alert('s06-605호로 오세요')
+    }
+    function notice_event(){
+      window.location.href = 'http://127.0.0.1:5000/notice'
+    }
+    function youtube_event(){
+      window.location.href = 'https://www.youtube.com/channel/UCAEuOSt3IFWM1ga63-KZrLA'
+    }
+  </script>
+</head>
+<body>
+
+  <div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+      <div class="site-mobile-menu-close">
+        <span class="icofont-close js-menu-toggle"></span>
+      </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+  </div>
+
+ <!-- 툴탭 -->
+  <nav class="site-nav">
+    <div class="container">
+      <div class="site-navigation">
+        <a href="{{url_for('home')}}" class="logo float-left m-0">BeHarbor <span class="text-primary">.</span></a>
+
+        <ul class="js-clone-nav d-none d-lg-inline-noone text-left site-menu">
+          <li><a href="{{url_for('home')}}">Home</a></li>
+          <li class="has-children">
+            <a href="#">Pages</a>
+            <ul class="dropdown">
+              <li><a href="https://www.youtube.com/channel/UCAEuOSt3IFWM1ga63-KZrLA">Youtube</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="{{url_for('notice')}}">Notice</a></li>
+
+            </ul>
+          </li>
+          {% if not 'no' in session %}
+
+          <li><a href="{{url_for('login')}}">log_in</a></li>
+          {% else %}
+          <li><a href="{{url_for('logout')}}">log_out</a></li>
+          {% endif %}
+          <li class="active"><a href="#" onclick = "alert_event()">Contact Us</a></li>
+        </ul>
+
+        <a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-block" data-toggle="collapse" data-target="#main-navbar">
+          <span></span>
+        </a>
+
+      </div>
+    </div>
+  </nav>
+<!-- 제목 -->
+  <div class="custom-hero">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <h1 class="hero-heading">Welcome To BeHarbor &mdash; 2022</h1>
+          <div  class="line js-line mx-auto mb-3 my-3"></div>
+          <p class="sub-text">동아대학교 컴퓨터 • AI 공학부 소프트웨어 실습 지원팀.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 사진 섹션 -->
+  <div class="site-section">
+    <div class="container">
+      <div class="row align-items-center justify-content-around">
+
+        <div class="col-lg-4 text-center">
+
+          <div >
+            <div data-jarallax-element="-100" class="jarallax">
+              <h2>Notice</h2>
+              <span class="d-inline-block" onclick = "notice_event()">공지사항 바로가기</span>
+              <img src="static/images/harbor_applicant.png" alt="Image" class="img-fluid my-3 my-lg-5" onclick = "notice_event()">
+              <p class="line-top fig-2-text mb-4">서버에 관련된 최신 공지를 확인하세요!</p>
             </div>
-        </nav>
+          </div>
 
-        <script>
-            // 변경된 사항 : 일단 슬라이드 안에 사진, 영상을 합쳐서 넣어봤음.
-            // 그리고 슬라이드에서 시간이 지나면 자동으로 넘어감(영상 재생 중 영상이 끝나지도 않았는데 자동으로 넘어감)
-            // 현재 interval을 false로 줘서 기능을 제거해서 영상이 끝나기 전에 넘어가지 않게 해놨음.
-            // 근데 이게 사진도 안넘어가서 문제 + 영상이 끝나도 안넘어감
-            // 그래서 첫 화면이 사진일 때 자기가 ">" 이 버튼을 눌르지 않는 이상 뒤에 영상이 있는지 없는지를 모름
-            // 그리고 영상이 끝나면 자기가 넘겨야댐. 근데 애들이 넘길까 싶긴함..  ㅎㅎ..
+        </div>
+        <div class="col-lg-5 mt-5">
 
-            const videos = []
-            const tag = document.createElement("script")
-            const firstScriptTag = document.getElementsByTagName("script")[0]
-            tag.src = "https://www.youtube.com/iframe_api"
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
-            function onYouTubeIframeAPIReady() {
-              const slides = Array.from(document.querySelectorAll(".carousel-item"))
-              slides.forEach((slide, index) => {
-                const video = slide.querySelector(".video-player")
-                if (video && video.dataset) {
-                  const player = createPlayer({
-                    id: video.id,
-                    videoId: video.dataset.videoId,
-                  })
-                  videos.push({ player, index })
-                }
-              })
-            }
-            //$(".carousel").carousel({ interval:10000}); // 이걸 넣어서 슬라이드 시간 조절을 하는데 뭐지 ,,? 먹지를 않음,,
-            function createPlayer(playerInfo) {
-              return new YT.Player(playerInfo.id, {
-                videoId: playerInfo.videoId,
-                playerVars: {
-                  showinfo: 0,
-                },
-                events: {
-                  'onStateChange': onPlayerStateChange
-                  }
-              })
-            }
-            function onPlayerStateChange(event) {
-                if(event.data === 0) $('.carousel').carousel();
-                else $('.carousel').carousel('pause');
-                }
-            function theBigPause() {
-              videos.map(video => video.player.pauseVideo())
-            }
-            $(function () {
-              $(".carousel").on("slide.bs.carousel", function (e) {
-                theBigPause()
-                const next = $(e.relatedTarget).index()
-                const video = videos.filter(v => v.index === next)[0]
-                if (video) {
-                  video.player.playVideo();
-                }
-              })
-            })
-        </script>
-        <div class="container contenedor-slide">
-            <div class="row">
-                <div class="col-xs-12 col-md-8">
-                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
-                        <!-- 슬라이드 시간 조절. 이 부분을 false로 줌-->
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <!-- 이미지 일때 -->
-                                <img class="d-block w-100" src="{{ url_for('static', filename = 'image/test_notice.png') }}"
-                                    alt="First slide" style="height: 411px;"/>
-                            </div>
-                            <div class="carousel-item">
-                                <!-- 영상 일때 -->
-                                <div class="carousel-video-inner embed-responsive embed-responsive-16by9">
-                                    <div class="video-player" id="player1" data-video-id="NxcMGzTiRvI"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 버튼 문제 존재 이건 따로 말로 설명해야댐 글로 설명할 수가 없음.. -->
-                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-4">
-                    <!-- 게시판 들어갈 부분-->
-                    <!-- <h3 class="font-weight-light">"Programming is a skill best acquired by practice and example rather than from books." </h1>
-                    <p align="right">Alan Mathison Turing(1912~1954)</p>                     -->
-                    <!-- more버튼 누르면 공지사항 페이지로 넘어가게 해놨어요. 공지사항 페이지는 수정이 필요함 -->
-                    <h3 class="font-weight-light">Notice</h3>
-                    <div class = "more"><a href="{{url_for('notice')}}" class = "more_text">more</a></div>
-                   
-                   <!------------------------공지사항 게시판 ------------------------------>
-                    <table class ="notice">
-                        <tr>
-                            <th scope="row">2022-07-26</th>
-                            <td id = "modal-open">테스트</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2022-07-25</th>
-                            <td>a</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2022-07-24</th>
-                            <td>b</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2022-07-23</th>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2022-07-20</th>
-                            <td>d</td>
-                        </tr>
-                        <!-- <tr>
-                            <th scope="row">2022-07-23</th>
-                            <td>예시 쓰기도 어렵네</td>
-                        </tr> -->
-                    </table>
-                <!-- 게시판 테이블에는 최근 공지 5개가 적당하고 이쁜거같아요 동적으로 받아오면 좋겠는데요 -->
-                
-                </div>
+          <div>
+            <h2>Youtube</h2>
+            <span class="d-inline-block">Educational Material</span>
+
+            <div  class="line me-auto mb-3 mt-3"></div>
+
+            <p class="line-top fig-2-text my-4">BeHarbor가 제공하는 교육영상을 확인해보세요!</p>
+            <img src="static/images/whale.png" alt="Image" class="img-fluid" onclick = "youtube_event()">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="section">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-4 mb-lg-0 mb-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="service-2 d-flex align-items-md-center">
+            <div class="image">
+              <img src="static/images/img_v_4-min.jpg" alt="Image" class="img-fluid">
             </div>
+            <div class="text">
+              <h2>Sneakers</h2>
+              <p>Far far away, behind the word mountains, far from the countries.</p>
+            </div>
+          </div>
         </div>
 
-            <div class="container">
-                <div class="row gx-4 gx-lg-5 justify-content-lg-around">
-                    <div class="col-md-4 mb-5">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h2 class="card-title">IDE-Service</h2>
-                                <p class="card-text">모든 책임은 본인에게 있습니다.</p>
-                            </div>
-                            <div class="card-footer"><a class="btn btn-outline-primary" href="{{url_for('ide')}}">Let's go!</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class="col-md-4 mb-5"> -->
-                        <!-- <div class="card h-100"> -->
-                            <!-- <div class="card-body">
-                                <h2 class="card-title">File Upload</h2>
-                                <p class="card-text">테스트중.</p>
-                            </div> -->
-                            <!-- <div class="card-footer"><a class="btn btn-outline-primary" href="{{url_for('file_setting')}}">Let's
-                                    go!</a></div> -->
-                        <!-- </div>
-                    </div> -->
-                    <div class="col-md-4 mb-5">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h2 class="card-title">Logout</h2>
-                                <p class="card-text">잊지말고 부탁드립니다.</p>
-                            </div>
-                            <div class="card-footer "><a class="btn btn-outline-primary" href="{{url_for('logout')}}">Let's go!</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="col-12 col-md-6 col-lg-4 mb-lg-0 mb-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="service-2 d-flex align-items-md-center">
+            <div class="image">
+              <img src="static/images/img_v_5-min.jpg" alt="Image" class="img-fluid">
             </div>
+            <div class="text">
+              <h2>Clothing</h2>
+              <p>Far far away, behind the word mountains, far from the countries.</p>
+            </div>
+          </div>
         </div>
+
+        <div class="col-12 col-md-6 col-lg-4 mb-lg-0 mb-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="service-2 d-flex align-items-md-center">
+            <div class="image">
+              <img src="static/images/img_v_6-min.jpg" alt="Image" class="img-fluid">
+            </div>
+            <div class="text">
+              <h2>Accessories</h2>
+              <p>Far far away, behind the word mountains, far from the countries.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  <div class="section-4">
+    <div class="container">
+      <div class="row mb-4 align-items-center">
+        <div class="col-6">
+          <h2 class="line-top">Featured Collections</h2>
+        </div>
+        <div class="col-6 text-right">
+          <a href="#" class="custom-prev-v2 js-custom-prev-v2">Prev</a>
+          <span class="mx-3">/</span>
+          <a href="#" class="custom-next-v2 js-custom-next-v2">Next</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="owl-4-slider owl-carousel">
+          <div class="product">
+            <a href="#" class="d-block">
+              <img src="static/images/img_v_8-min.jpg" alt="Image" class="img-fluid">
+            </a>
+            <div class="text-center text-md-left">
+              <h3>Woman Floral Dress</h3>
+              <p>Far far away, behind the word mountains, far from the countries.</p>
+            </div>
+          </div>
+
+          <div class="product">
+            <a href="#" class="d-block">
+              <img src="static/images/img_v_7-min.jpg" alt="Image" class="img-fluid">
+            </a>
+            <div class="text-center text-md-left">
+              <h3>Man White Blazer</h3>
+              <p>Far far away, behind the word mountains, far from the countries.</p>
+            </div>
+          </div>
+
+          <div class="product">
+            <a href="#" class="d-block">
+              <img src="static/images/img_v_3-min.jpg" alt="Image" class="img-fluid">
+            </a>
+            <div class="text-center text-md-left">
+              <h3>Woman Floral Dress</h3>
+              <p>Far far away, behind the word mountains, far from the countries.</p>
+            </div>
+          </div>
+
+          <div class="product">
+            <a href="#" class="d-block">
+              <img src="static/images/img_v_4-min.jpg" alt="Image" class="img-fluid">
+            </a>
+            <div class="text-center text-md-left">
+              <h3>Woman Floral Dress</h3>
+              <p>Far far away, behind the word mountains, far from the countries.</p>
+            </div>
+          </div>
+
+          <div class="product">
+            <a href="#" class="d-block">
+              <img src="static/images/img_v_6-min.jpg" alt="Image" class="img-fluid">
+            </a>
+            <div class="text-center text-md-left">
+              <h3>Woman Floral Dress</h3>
+              <p>Far far away, behind the word mountains, far from the countries.</p>
+            </div>
+          </div>
+
+          <div class="product">
+            <a href="#" class="d-block">
+              <img src="static/images/img_v_5-min.jpg" alt="Image" class="img-fluid">
+            </a>
+            <div class="text-center text-md-left">
+              <h3>Woman Floral Dress</h3>
+              <p>Far far away, behind the word mountains, far from the countries.</p>
+            </div>
+          </div>
+
+          <div class="product">
+            <a href="#" class="d-block">
+              <img src="images/img_v_3-min.jpg" alt="Image" class="img-fluid">
+            </a>
+            <div class="text-center text-md-left">
+              <h3>Woman Floral Dress</h3>
+              <p>Far far away, behind the word mountains, far from the countries.</p>
+            </div>
+          </div>
+
+          <div class="product">
+            <a href="#" class="d-block">
+              <img src="static/images/img_v_4-min.jpg" alt="Image" class="img-fluid">
+            </a>
+            <div class="text-center text-md-left">
+              <h3>Woman Floral Dress</h3>
+              <p>Far far away, behind the word mountains, far from the countries.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="section">
+    <div class="container">
+      <div class="row justify-content-center mb-4">
+        <div class="col-lg-4">
+          <h2>Don't miss the new season 2021 lookbook</h2>
+          <div class="line my-3"></div>
+        </div>
+        <div class="col-lg-4">
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-4">
+          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+
+          <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+        </div>
+        <div class="col-lg-4">
+          <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+          <p>Far far away, behind the word mountains, far from the countries.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="section">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="0">
+          <div class="feature-v3 d-block">
+            <div class="wrap-icon">
+              <i class="flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>
+            </div>
+            <div class="text">
+              <h3>Minimal Design</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text</p>
+              <p class="more"><a href="#">Read more...</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature-v3 d-block">
+            <div class="wrap-icon">
+              <i class="flaticon-weekly-calendar-outline-event-interface-symbol"></i>
+            </div>
+            <div class="text">
+              <h3>Less is more</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text</p>
+              <p class="more"><a href="#">Read more...</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-v3 d-block">
+            <div class="wrap-icon">
+              <i class="flaticon-copy-two-paper-sheets-interface-symbol"></i>
+            </div>
+            <div class="text">
+              <h3>Whitespaces</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text</p>
+              <p class="more"><a href="#">Read more...</a></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="section">
+    <div class="container">
+      <div class="row justify-content-around align-items-center">
+        <div class="col-lg-6">
+          <div class="image-stack-v2">
+            <div class="image-stack__item image-stack__item--top">
+              <div data-jarallax-element="-100" class="jarallax">
+                <img src="static/images/img_v_3-min.jpg" alt="Image" class="img-fluid">
+              </div>
+            </div>
+            <div class="image-stack__item image-stack__item--bottom">
+              <img src="static/images/img_v_8-min.jpg" alt="Image" class="img-fluid">
+            </div>
+          </div>
+
+
+        </div>
+        <div class="col-lg-4">
+
+          <h2 class="mb-4">Don't miss the new season 2021 lookbook</h2>
+          <div class="line my-3"></div>
+          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+
+          <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container pb-5 mb-5 border-bottom">
+    <div class="row justify-content-around">
+      <div class="col-lg-4 mb-4 mb-lg-0">
+
+        <h2 class="mb-4">Why you choose us</h2>
+        <div class="line my-3"></div>
+        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+        <p class="mt-5"><a href="#" class="btn btn-primary">Get In Touch</a></p>
 
         
+      </div>
+      <div class="col-lg-7">
+        <div class="custom-accordion" id="accordion_1">
+          <div class="accordion-item">
+            <h2 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">How to download and register?</button>
+            </h2>
 
-        
-        <!-- 모달 공지게시판 올리는 부분 -->
-        <div class ="container">
-            <div class="popup-wrap" id="popup">
-                <div class="popup">
-                  <div class="popup-head">
-                      <span class="head-title">
-                        beharbor</span>
-                  </div>
-                  <div class="popup-body">
-                    <div class="body-content">
-                      <div class="body-titlebox">
-                        <!-- 제목 작성하는 부분 -->
-                        <h1>테스트</h1>
-                      </div>
-                      <div class="body-contentbox">
-                        <p>테스트로 작성하는 문장입니다. 근데 이거 좀 비효율적인거 같은데 동적으로 공지글을 받아왔으면 좋겠어요. 서버내에 따로 공지 파일을 만드는 건 어때요?</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="popup-foot">
-                    <span class="pop-btn confirm" id="confirm">확인</span>
-                    <!-- <span class="pop-btn close" id="close">창 닫기</span> -->
-                  </div>
-                </div>
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion_1">
+              <div class="accordion-body">
+                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+              </div>
             </div>
+          </div> <!-- .accordion-item -->
+
+          <div class="accordion-item">
+            <h2 class="mb-0">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">How to create your paypal account?</button>
+            </h2>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion_1">
+              <div class="accordion-body">
+                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+              </div>
+            </div>
+          </div> <!-- .accordion-item -->
+          <div class="accordion-item">
+            <h2 class="mb-0">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">How to link your paypal and bank account?</button>
+            </h2>
+
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion_1">
+              <div class="accordion-body">
+                <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+              </div>
+            </div>
+
+          </div> <!-- .accordion-item -->
+
         </div>
-       <!-- ############## Footer Start ################-->
-	    <footer>
-		    <div class="card text-center">
-			    <div class="card-body" style="background-color: #e3f2fd;">
-			    <p class="card-text mt-3">Made by Beharbor</p>
-			    <p class="card-text">Copyright &copy; <script>document.write(new Date().getFullYear());</script> All right reserved.</p>
-			    </div>
-		    </div>
-	    </footer>
-	    <!-- ############## Footer End ################-->
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
+
+
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <div class="section">
+    <div class="container">
+      <div class="row justify-content-around align-items-center">
+        <div class="col-lg-6 order-lg-2">
+          <div class="image-stack-v2">
+            <div class="image-stack__item image-stack__item--top">
+              <div data-jarallax-element="-100" class="jarallax">
+                <img src="static/images/img_v_7-min.jpg" alt="Image" class="img-fluid">
+              </div>
+            </div>
+            <div class="image-stack__item image-stack__item--bottom">
+              <img src="static/images/img_v_5-min.jpg" alt="Image" class="img-fluid">
+            </div>
+          </div>
+
+
+        </div>
+        <div class="col-lg-4">
+
+          <h2 class="mb-4">Don't miss the new season 2021 lookbook</h2>
+          <div class="line my-3"></div>
+          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+
+          <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="section">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-lg-7">
+          <h2 class="mb-4">Blog Posts</h2>
+          <div class="line my-3"></div>
+        </div>
+      </div>
+      <div class="row">
+
+
+        <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
+          <div class="blog_entry">
+            <a href="single.html"><img src="images/img_h_3-min.jpg" alt="Free Website Template by Untree.co" class="img-fluid"></a>
+            <div class="p-4 bg-white">
+              <h3><a href="single.html">Far far away, behind the word mountains</a></h3>
+              <span class="date">April 25, 2019</span>
+              <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+              <p class="more"><a href="#">Read more...</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
+          <div class="blog_entry">
+            <a href="single.html"><img src="static/images/img_h_5-min.jpg" alt="Free Website Template by Untree.co" class="img-fluid"></a>
+            <div class="p-4 bg-white">
+              <h3><a href="single.html">Far far away, behind the word mountains</a></h3>
+              <span class="date">April 25, 2019</span>
+              <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+              <p class="more"><a href="#">Read more...</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
+          <div class="blog_entry">
+            <a href="single.html"><img src="static/images/img_h_7-min.jpg" alt="Free Website Template by Untree.co" class="img-fluid"></a>
+            <div class="p-4 bg-white">
+              <h3><a href="single.html">Far far away, behind the word mountains</a></h3>
+              <span class="date">April 25, 2019</span>
+              <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+              <p class="more"><a href="#">Read more...</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="custom-hero section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <h1>Let's Get Started</h1>
+          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+          <p><a href="#" class="btn btn-primary">Get In Touch</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="site-footer">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-lg-4">
+          <div class="widget">
+            <h3>About</h3>
+            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live.</p>
+          </div>
+          <div class="widget">
+            <h3>Connect with us</h3>
+            <ul class="social list-unstyled">
+              <li><a href="#"><span class="icon-facebook"></span></a></li>
+              <li><a href="#"><span class="icon-twitter"></span></a></li>
+              <li><a href="#"><span class="icon-instagram"></span></a></li>
+              <li><a href="#"><span class="icon-dribbble"></span></a></li>
+              <li><a href="#"><span class="icon-linkedin"></span></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-12">
+              <div class="widget">
+                <h3>Navigations</h3>
+              </div>
+            </div>
+            <div class="col-6 col-sm-6 col-md-4">
+              <div class="widget">
+                <ul class="links list-unstyled">
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Work</a></li>
+                  <li><a href="#">Process</a></li>
+                  <li><a href="#">About Us</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-6 col-sm-6 col-md-4">
+              <div class="widget">
+                <ul class="links list-unstyled">
+                  <li><a href="#">Press</a></li>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">Support</a></li>
+                  <li><a href="#">Privacy</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-6 col-sm-6 col-md-4">
+              <div class="widget">
+                <ul class="links list-unstyled">
+                  <li><a href="#">Privacy</a></li>
+                  <li><a href="#">FAQ</a></li>
+                  <li><a href="#">Careers</a></li>
+                  <li><a href="#">Process</a></li>
+                  <li><a href="#">About Us</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center text-center copyright">
+        <div class="col-md-8">
+          <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> <!-- License information: https://untree.co/license/ -->
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="overlayer"></div>
+  <div class="loader">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+
+  <script src="static/js/jquery-3.5.1.min.js"></script>
+  <script src="static/js/jquery-migrate-3.0.0.min.js"></script>
+  <script src="static/js/popper.min.js"></script>
+  <script src="static/js/bootstrap.min.js"></script>
+  <script src="static/js/owl.carousel.min.js"></script>
+  <script src="static/js/aos.js"></script>
+  <script src="static/js/imagesloaded.pkgd.js"></script>
+  <script src="static/js/isotope.pkgd.min.js"></script>
+  <script src="static/js/jquery.animateNumber.min.js"></script>
+  <script src="static/js/jquery.stellar.min.js"></script>
+  <script src="static/js/jarallax.min.js"></script>
+  <script src="static/js/jarallax-element.min.js"></script>
+  <script src="static/js/jquery.waypoints.min.js"></script>
+  <script src="static/js/jquery.fancybox.min.js"></script>
+
+  <script src="static/js/jquery.lettering.js"></script>
+
+
+  <script src="static/js/TweenMax.min.js"></script>
+  <script src="static/js/ScrollMagic.min.js"></script>
+  <script src="static/js/scrollmagic.animation.gsap.min.js"></script>
+  <script src="static/js/debug.addIndicators.min.js"></script>
+
+
+  <script src="static/js/custom.js"></script>
+
+  
+</body>
 </html>
