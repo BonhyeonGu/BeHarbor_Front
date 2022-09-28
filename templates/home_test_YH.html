@@ -143,7 +143,7 @@
     function theBigPause() {
       videos.map(video => video.player.pauseVideo())
     }
-    $(function () {
+    $(function () { 
       $(".carousel").on("slide.bs.carousel", function (e) {
         theBigPause()
         const next = $(e.relatedTarget).index()
@@ -228,6 +228,8 @@
   
   <div class="section">
     <div class="container">
+      <h2>BeHarbor Service</h2>
+      <div  class="line me-auto mb-3 mt-3"></div>
       <div class="row">
         <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="0">
           <div class="feature-v3 d-block">
@@ -236,8 +238,8 @@
             </div>
             <div class="text">
               <h3>IDE-Service</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text</p>
-              <p class="more"><a href="{{url_for('ide')}}">Read more...</a></p>
+              <p><!-- 설명이 필요해요~~~ -->Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text</p>
+              <p class="more"><a href="#IDE-Service">Read more...</a></p>
             </div>
           </div>
         </div>
@@ -249,8 +251,8 @@
             </div>
             <div class="text">
               <h3>Kubernetes</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text</p>
-              <p class="more"><a href="{{url_for('kuber_url')}}">Read more...</a></p>
+              <p><!-- 설명이 필요해요~~~ -->Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text</p>
+              <p class="more"><a href="#Kubernetes">Read more...</a></p>
             </div>
           </div>
         </div>
@@ -262,8 +264,8 @@
             </div>
             <div class="text">
               <h3>Resource Lending</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text</p>
-              <p class="more"><a href="http://168.115.119.58:8001/">Read more...</a></p>
+              <p><!-- 설명이 필요해요~~~ -->Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text</p>
+              <p class="more"><a href="#Resource_Lending">Read more...</a></p>
             </div>
           </div>
         </div>
@@ -273,7 +275,7 @@
   </div>
 
 
-  <div class="section">
+  <div class="section" id="IDE-Service">
     <div class="container">
       <div class="row justify-content-around align-items-center">
         <div class="col-lg-6">
@@ -292,17 +294,18 @@
         </div>
         <div class="col-lg-4">
 
-          <h2 class="mb-4">Don't miss the new season 2021 lookbook</h2>
+          <h2 class="mb-4">IDE-Serviec</h2>
           <div class="line my-3"></div>
           <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
 
           <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+          <p><a href="{{url_for('ide')}}" class="btn btn-primary">IDE-Service</a></p>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="section">
+  <div class="section" id="Kubernetes">
     <div class="container">
       <div class="row justify-content-around align-items-center flex-row-reverse">
         <div class="col-lg-6">
@@ -321,17 +324,18 @@
         </div>
         <div class="col-lg-4">
 
-          <h2 class="mb-4">Don't miss the new season 2021 lookbook</h2>
+          <h2 class="mb-4">Kubernetes</h2>
           <div class="line my-3"></div>
           <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
 
           <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+          <p><a href="{{url_for('kuber_url')}}" class="btn btn-primary">Kubernetes</a></p>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="section">
+  <div class="section" id="Resource_Lending">
     <div class="container">
       <div class="row justify-content-around align-items-center">
         <div class="col-lg-6">
@@ -350,11 +354,12 @@
         </div>
         <div class="col-lg-4">
 
-          <h2 class="mb-4">Don't miss the new season 2021 lookbook</h2>
+          <h2 class="mb-4">Resource_Lending</h2>
           <div class="line my-3"></div>
           <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
 
           <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+          <p><a href="http://168.115.119.58:8001/" class="btn btn-primary">Resource_Lending</a></p>
         </div>
       </div>
     </div>
