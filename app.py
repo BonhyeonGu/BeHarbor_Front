@@ -152,7 +152,10 @@ def ide():
 #테스트할 파일을 바꾸고 싶으면 return 템플릿에서 community.html 대신 적용할 파일 적어주면 됩니다.
 @app.route("/testt")
 def testt():
-	return render_template('home_test_YH.html')
+	sql = "select n.headline, n.join_date from Notice n order by n.join_date desc LIMIT 3"
+	cur.execute(sql)
+	notices = cur.fetchall()
+	return render_template('home_test_YH.html',notices=notices)
 
 #회원가입(admin계정 페이지)
 @app.route("/signup")

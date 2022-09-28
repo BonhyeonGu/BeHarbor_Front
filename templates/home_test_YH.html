@@ -225,7 +225,7 @@
     </div> -->
   </div>
   
-  
+  <!-- 이모티콘이 맘에 안들어요 추천 받습니다-->
   <div class="section">
     <div class="container">
       <h2>BeHarbor Service</h2>
@@ -237,9 +237,9 @@
               <i class="flaticon-cube-of-notes-stack"></i>
             </div>
             <div class="text">
-              <h3>IDE-Service</h3>
+              <h3>Education</h3>
               <p><!-- 설명이 필요해요~~~ -->Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text</p>
-              <p class="more"><a href="#IDE-Service">Read more...</a></p>
+              <p class="more"><a href="#Education">Read more...</a></p>
             </div>
           </div>
         </div>
@@ -274,8 +274,8 @@
     </div>
   </div>
 
-
-  <div class="section" id="IDE-Service">
+  <!-- 이미지가 필요해해해-->
+  <div class="section" id="Education">
     <div class="container">
       <div class="row justify-content-around align-items-center">
         <div class="col-lg-6">
@@ -294,12 +294,13 @@
         </div>
         <div class="col-lg-4">
 
-          <h2 class="mb-4">IDE-Serviec</h2>
+          <h2 class="mb-4">Education</h2>
           <div class="line my-3"></div>
           <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-
+          <!--설명 몰라-->
           <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-          <p><a href="{{url_for('ide')}}" class="btn btn-primary">IDE-Service</a></p>
+          <p><a href="https://www.youtube.com/channel/UCAEuOSt3IFWM1ga63-KZrLA" class="btn btn-primary">Beharbor Youtube</a></p>
+          <p><a href="#" class="btn btn-primary" style="width:183.63px">Beharbor Blog</a></p><!--블로그 주소 줘요오-->
         </div>
       </div>
     </div>
@@ -327,7 +328,7 @@
           <h2 class="mb-4">Kubernetes</h2>
           <div class="line my-3"></div>
           <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-
+          <!--설명 몰라-->
           <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
           <p><a href="{{url_for('kuber_url')}}" class="btn btn-primary">Kubernetes</a></p>
         </div>
@@ -354,12 +355,12 @@
         </div>
         <div class="col-lg-4">
 
-          <h2 class="mb-4">Resource_Lending</h2>
+          <h2 class="mb-4">Resource Lending</h2>
           <div class="line my-3"></div>
           <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-
+          <!--설명 몰라-->
           <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-          <p><a href="http://168.115.119.58:8001/" class="btn btn-primary">Resource_Lending</a></p>
+          <p><a href="http://168.115.119.58:8001/" class="btn btn-primary">Resource Lending</a></p>
         </div>
       </div>
     </div>
@@ -371,14 +372,27 @@
     <div class="container">
       <div class="row mb-5">
         <div class="col-lg-7">
-          <h2 class="mb-4">Blog Posts</h2>
+          <h2 class="mb-4">BeHarbor Notice</h2>
           <div class="line my-3"></div>
+          <p class="more"><a href="http://127.0.0.1:5000/notice">서버에 관련된 최신 공지를 확인하세요!(이거 버튼임...)</a></p>
         </div>
       </div>
       <div class="row">
+        {% for i in range(notices|length) %}
+          <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
+            <div class="blog_entry"> <!-- 히히 이미지도 가져와야 하는데 어띃게 하징 히히 notice 빨리 만들어져야 히히 주소도 가져온느뎅-->
+              <a href="http://127.0.0.1:5000/notice"><img src="static/images/harbor_applicant.png" alt="Image" class="img-fluid"></a>
+              <div class="p-4 bg-white">
+                <h3><a href="http://127.0.0.1:5000/notice">{{notices[i][0]}}</a></h3>
+                <span class="date">{{notices[i][1]}}</span>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                <p class="more"><a href="http://127.0.0.1:5000/notice">Read more...</a></p>
+              </div>
+            </div>
+          </div>                
+        {% endfor %}
 
-
-        <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
+        <!-- <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
           <div class="blog_entry">
             <a href="single.html"><img src="images/img_h_3-min.jpg" alt="Free Website Template by Untree.co" class="img-fluid"></a>
             <div class="p-4 bg-white">
@@ -388,9 +402,9 @@
               <p class="more"><a href="#">Read more...</a></p>
             </div>
           </div>
-        </div>
+        </div> -->
 
-        <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
+        <!-- <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
           <div class="blog_entry">
             <a href="single.html"><img src="static/images/img_h_5-min.jpg" alt="Free Website Template by Untree.co" class="img-fluid"></a>
             <div class="p-4 bg-white">
@@ -400,9 +414,9 @@
               <p class="more"><a href="#">Read more...</a></p>
             </div>
           </div>
-        </div>
+        </div> -->
 
-        <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
+        <!-- <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
           <div class="blog_entry">
             <a href="single.html"><img src="static/images/img_h_7-min.jpg" alt="Free Website Template by Untree.co" class="img-fluid"></a>
             <div class="p-4 bg-white">
@@ -412,7 +426,7 @@
               <p class="more"><a href="#">Read more...</a></p>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
