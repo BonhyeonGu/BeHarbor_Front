@@ -30,19 +30,17 @@
   <link rel="stylesheet" href="static/css/style.css">
 
   <title>BeHarbor 홈페이지</title>
-  <script>
-    function alert_event(){
-      alert('s06-605호로 오세요')
-    }
-    function notice_event(){
-      window.location.href = 'http://127.0.0.1:5000/notice'
-    }
-    function youtube_event(){
-      window.location.href = 'https://www.youtube.com/channel/UCAEuOSt3IFWM1ga63-KZrLA'
-    }
-  </script>
 </head>
 <body>
+  <!-- <div class="lines-wrap">
+    <div class="lines-inner"> -->
+      <!-- <div class="lines"></div> -->
+    <!-- </div>
+  </div> -->
+  <!-- END lineS ㅅㅂ ㅋㅋ 나만안되네 -->
+
+  
+
 
   <div class="site-mobile-menu site-navbar-target">
     <div class="site-mobile-menu-header">
@@ -53,7 +51,7 @@
     <div class="site-mobile-menu-body"></div>
   </div>
 
- <!-- 툴탭 -->
+
   <nav class="site-nav">
     <div class="container">
       <div class="site-navigation">
@@ -86,7 +84,8 @@
       </div>
     </div>
   </nav>
-<!-- 제목 -->
+
+
   <div class="custom-hero">
     <div class="container">
       <div class="row justify-content-center">
@@ -99,225 +98,148 @@
     </div>
   </div>
 
+  <script>
+    // 변경된 사항 : 일단 슬라이드 안에 사진, 영상을 합쳐서 넣어봤음.
+    // 그리고 슬라이드에서 시간이 지나면 자동으로 넘어감(영상 재생 중 영상이 끝나지도 않았는데 자동으로 넘어감)
+    // 현재 interval을 false로 줘서 기능을 제거해서 영상이 끝나기 전에 넘어가지 않게 해놨음.
+    // 근데 이게 사진도 안넘어가서 문제 + 영상이 끝나도 안넘어감
+    // 그래서 첫 화면이 사진일 때 자기가 ">" 이 버튼을 눌르지 않는 이상 뒤에 영상이 있는지 없는지를 모름
+    // 그리고 영상이 끝나면 자기가 넘겨야댐. 근데 애들이 넘길까 싶긴함..  ㅎㅎ..
 
-  <!-- 사진 섹션 -->
+    const videos = []
+    const tag = document.createElement("script")
+    const firstScriptTag = document.getElementsByTagName("script")[0]
+    tag.src = "https://www.youtube.com/iframe_api"
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+    function onYouTubeIframeAPIReady() {
+      const slides = Array.from(document.querySelectorAll(".carousel-item"))
+      slides.forEach((slide, index) => {
+        const video = slide.querySelector(".video-player")
+        if (video && video.dataset) {
+          const player = createPlayer({
+            id: video.id,
+            videoId: video.dataset.videoId,
+          })
+          videos.push({ player, index })
+        }
+      })
+    }
+    //$(".carousel").carousel({ interval:10000}); // 이걸 넣어서 슬라이드 시간 조절을 하는데 뭐지 ,,? 먹지를 않음,,
+    function createPlayer(playerInfo) {
+      return new YT.Player(playerInfo.id, {
+        videoId: playerInfo.videoId,
+        playerVars: {
+          showinfo: 0,
+        },
+        events: {
+          'onStateChange': onPlayerStateChange
+          }
+      })
+    }
+    function onPlayerStateChange(event) {
+        if(event.data === 0) $('.carousel').carousel();
+        else $('.carousel').carousel('pause');
+        }
+    function theBigPause() {
+      videos.map(video => video.player.pauseVideo())
+    }
+    $(function () { 
+      $(".carousel").on("slide.bs.carousel", function (e) {
+        theBigPause()
+        const next = $(e.relatedTarget).index()
+        const video = videos.filter(v => v.index === next)[0]
+        if (video) {
+          video.player.playVideo();
+        }
+      })
+    })
+  </script>
+
   <div class="site-section">
-    <div class="container">
+    <div class="container contenedor-slide">
       <div class="row align-items-center justify-content-around">
-
-        <div class="col-lg-4 text-center">
-
-          <div >
-            <div data-jarallax-element="-100" class="jarallax">
-              <h2>Notice</h2>
-              <span class="d-inline-block" onclick = "notice_event()">공지사항 바로가기</span>
-              <img src="static/images/harbor_applicant.png" alt="Image" class="img-fluid my-3 my-lg-5" onclick = "notice_event()">
-              <p class="line-top fig-2-text mb-4">서버에 관련된 최신 공지를 확인하세요!</p>
+          <div class="col-xs-12 col-md-8 mt-5">
+              <h2 style="margin-left: 10px;">Team BeHarbor</h2>
+              <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
+                  <!-- 슬라이드 시간 조절. 이 부분을 false로 줌-->
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <!-- 영상 일때 -->
+                          <div class="carousel-video-inner embed-responsive embed-responsive-16by9">
+                              <div class="video-player" id="player1" data-video-id="NxcMGzTiRvI"></div>
+                          </div>
+                      </div>
+                      <div class="carousel-item">
+                          <!-- 이미지 일때 -->
+                          <img class="d-block w-100" src="{{ url_for('static', filename = 'image/test_notice.png') }}"
+                              alt="First slide" style="height: 411px;"/>
+                      </div>
+                      
+                  </div>
+                  <!-- 버튼 문제 존재 이건 따로 말로 설명해야댐 글로 설명할 수가 없음.. -->
+                  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                  </a>
+              </div>
+          </div>
+          <div class="col-lg-4 mt-5">
+            <div>
+              <h4 class="d-inline-block">Why BeHarbor?</h4>
+  
+              <div  class="line me-auto mb-3 mt-3"></div>
+  
+              <p class="line-top fig-2-text my-4">Harbor는 항구의 뜻을 가지고 있습니다. BeHarbor는 항구처럼 컨테이너를 관리하고, 정보를 수송하는 팀이 되고자 하는 의미를 담고 있습니다.</p>
+            </div>
+            <br>
+            <div>
+              <h4 class="d-inline-block">What BeHarbor do?</h4>
+  
+              <div  class="line me-auto mb-3 mt-3"></div>
+  
+              <p class="line-top fig-2-text my-4">저희 팀은 장기, 단기, 개별, 협업 프로젝트를 위한 자원할당 및 관리 서비스에 필요한 서버를 제공하고 서버 관리에 관심이 있는 학생들에게 교육 자료를 전달합니다.</p>
             </div>
           </div>
-
         </div>
+      </div>
+    <!-- <div class="container">
+      <div class="row align-items-center justify-content-around">
+
         <div class="col-lg-5 mt-5">
 
           <div>
-            <h2>Youtube</h2>
-            <span class="d-inline-block">Educational Material</span>
+            <h2>Minimal Watch</h2>
+            <span class="d-inline-block">Innovative Design</span>
 
             <div  class="line me-auto mb-3 mt-3"></div>
 
-            <p class="line-top fig-2-text my-4">BeHarbor가 제공하는 교육영상을 확인해보세요!</p>
-            <img src="static/images/whale.png" alt="Image" class="img-fluid" onclick = "youtube_event()">
+            <p class="line-top fig-2-text my-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            <img src="static/images/img_v_1-min.jpg" alt="Image" class="img-fluid">
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
-
-
-  <div class="section">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 col-md-6 col-lg-4 mb-lg-0 mb-4" data-aos="fade-up" data-aos-delay="100">
-          <div class="service-2 d-flex align-items-md-center">
-            <div class="image">
-              <img src="static/images/img_v_4-min.jpg" alt="Image" class="img-fluid">
-            </div>
-            <div class="text">
-              <h2>Sneakers</h2>
-              <p>Far far away, behind the word mountains, far from the countries.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-4 mb-lg-0 mb-4" data-aos="fade-up" data-aos-delay="200">
-          <div class="service-2 d-flex align-items-md-center">
-            <div class="image">
-              <img src="static/images/img_v_5-min.jpg" alt="Image" class="img-fluid">
-            </div>
-            <div class="text">
-              <h2>Clothing</h2>
-              <p>Far far away, behind the word mountains, far from the countries.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-4 mb-lg-0 mb-4" data-aos="fade-up" data-aos-delay="300">
-          <div class="service-2 d-flex align-items-md-center">
-            <div class="image">
-              <img src="static/images/img_v_6-min.jpg" alt="Image" class="img-fluid">
-            </div>
-            <div class="text">
-              <h2>Accessories</h2>
-              <p>Far far away, behind the word mountains, far from the countries.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
   
-
-  <div class="section-4">
-    <div class="container">
-      <div class="row mb-4 align-items-center">
-        <div class="col-6">
-          <h2 class="line-top">Featured Collections</h2>
-        </div>
-        <div class="col-6 text-right">
-          <a href="#" class="custom-prev-v2 js-custom-prev-v2">Prev</a>
-          <span class="mx-3">/</span>
-          <a href="#" class="custom-next-v2 js-custom-next-v2">Next</a>
-        </div>
-      </div>
-
-      <div>
-        <div class="owl-4-slider owl-carousel">
-          <div class="product">
-            <a href="#" class="d-block">
-              <img src="static/images/img_v_8-min.jpg" alt="Image" class="img-fluid">
-            </a>
-            <div class="text-center text-md-left">
-              <h3>Woman Floral Dress</h3>
-              <p>Far far away, behind the word mountains, far from the countries.</p>
-            </div>
-          </div>
-
-          <div class="product">
-            <a href="#" class="d-block">
-              <img src="static/images/img_v_7-min.jpg" alt="Image" class="img-fluid">
-            </a>
-            <div class="text-center text-md-left">
-              <h3>Man White Blazer</h3>
-              <p>Far far away, behind the word mountains, far from the countries.</p>
-            </div>
-          </div>
-
-          <div class="product">
-            <a href="#" class="d-block">
-              <img src="static/images/img_v_3-min.jpg" alt="Image" class="img-fluid">
-            </a>
-            <div class="text-center text-md-left">
-              <h3>Woman Floral Dress</h3>
-              <p>Far far away, behind the word mountains, far from the countries.</p>
-            </div>
-          </div>
-
-          <div class="product">
-            <a href="#" class="d-block">
-              <img src="static/images/img_v_4-min.jpg" alt="Image" class="img-fluid">
-            </a>
-            <div class="text-center text-md-left">
-              <h3>Woman Floral Dress</h3>
-              <p>Far far away, behind the word mountains, far from the countries.</p>
-            </div>
-          </div>
-
-          <div class="product">
-            <a href="#" class="d-block">
-              <img src="static/images/img_v_6-min.jpg" alt="Image" class="img-fluid">
-            </a>
-            <div class="text-center text-md-left">
-              <h3>Woman Floral Dress</h3>
-              <p>Far far away, behind the word mountains, far from the countries.</p>
-            </div>
-          </div>
-
-          <div class="product">
-            <a href="#" class="d-block">
-              <img src="static/images/img_v_5-min.jpg" alt="Image" class="img-fluid">
-            </a>
-            <div class="text-center text-md-left">
-              <h3>Woman Floral Dress</h3>
-              <p>Far far away, behind the word mountains, far from the countries.</p>
-            </div>
-          </div>
-
-          <div class="product">
-            <a href="#" class="d-block">
-              <img src="images/img_v_3-min.jpg" alt="Image" class="img-fluid">
-            </a>
-            <div class="text-center text-md-left">
-              <h3>Woman Floral Dress</h3>
-              <p>Far far away, behind the word mountains, far from the countries.</p>
-            </div>
-          </div>
-
-          <div class="product">
-            <a href="#" class="d-block">
-              <img src="static/images/img_v_4-min.jpg" alt="Image" class="img-fluid">
-            </a>
-            <div class="text-center text-md-left">
-              <h3>Woman Floral Dress</h3>
-              <p>Far far away, behind the word mountains, far from the countries.</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-
+  <!-- 이모티콘이 맘에 안들어요 추천 받습니다-->
   <div class="section">
     <div class="container">
-      <div class="row justify-content-center mb-4">
-        <div class="col-lg-4">
-          <h2>Don't miss the new season 2021 lookbook</h2>
-          <div class="line my-3"></div>
-        </div>
-        <div class="col-lg-4">
-        </div>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-lg-4">
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-
-          <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-        </div>
-        <div class="col-lg-4">
-          <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
-          <p>Far far away, behind the word mountains, far from the countries.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="section">
-    <div class="container">
+      <h2>BeHarbor Service</h2>
+      <div  class="line me-auto mb-3 mt-3"></div>
       <div class="row">
         <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="0">
           <div class="feature-v3 d-block">
             <div class="wrap-icon">
-              <i class="flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>
+              <i class="flaticon-cube-of-notes-stack"></i>
             </div>
             <div class="text">
-              <h3>Minimal Design</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text</p>
-              <p class="more"><a href="#">Read more...</a></p>
+              <h3>Education</h3>
+              <p>Beharbor팀은 동아대학교 컴퓨터 • AI공학부 학부생들을 위해서 실무에서 사용되는 여러 기술들과 컴퓨터 이론들을 교육자료와 영상강의를 제공합니다. </p>
+              <p class="more"><a href="#Education">Read more...</a></p>
             </div>
           </div>
         </div>
@@ -325,12 +247,12 @@
         <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
           <div class="feature-v3 d-block">
             <div class="wrap-icon">
-              <i class="flaticon-weekly-calendar-outline-event-interface-symbol"></i>
+              <i class="flaticon-big-map-placeholder-outlined-symbol-of-interface"></i>
             </div>
             <div class="text">
-              <h3>Less is more</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text</p>
-              <p class="more"><a href="#">Read more...</a></p>
+              <h3>Kubernetes</h3>
+              <p>Beharbor팀은 동아대학교 컴퓨터 • AI공학부 학부생들을 위해서 쿠버네티스를 이용해 머신러닝 개발툴인 주피터노트북을 제공합니다.</p>
+              <p class="more"><a href="#Kubernetes">Read more...</a></p>
             </div>
           </div>
         </div>
@@ -341,9 +263,9 @@
               <i class="flaticon-copy-two-paper-sheets-interface-symbol"></i>
             </div>
             <div class="text">
-              <h3>Whitespaces</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text</p>
-              <p class="more"><a href="#">Read more...</a></p>
+              <h3>Resource Lending</h3>
+              <p>Beharbor팀은 동아대학교 컴퓨터 • AI공학부 학부생들을 위해서 자원을 대여해주는 서비스를 실시합니다.</p>
+              <p class="more"><a href="#Resource_Lending">Read more...</a></p>
             </div>
           </div>
         </div>
@@ -352,8 +274,8 @@
     </div>
   </div>
 
-
-  <div class="section">
+  <!-- 이미지가 필요해해해-->
+  <div class="section" id="Education">
     <div class="container">
       <div class="row justify-content-around align-items-center">
         <div class="col-lg-6">
@@ -372,89 +294,30 @@
         </div>
         <div class="col-lg-4">
 
-          <h2 class="mb-4">Don't miss the new season 2021 lookbook</h2>
+          <h2 class="mb-4">Education</h2>
           <div class="line my-3"></div>
           <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-
+          <!--설명 몰라-->
           <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+          <p><a href="https://www.youtube.com/channel/UCAEuOSt3IFWM1ga63-KZrLA" class="btn btn-primary">Beharbor Youtube</a></p>
+          <p><a href="#" class="btn btn-primary" style="width:183.63px">Beharbor Blog</a></p><!--블로그 주소 줘요오-->
         </div>
       </div>
     </div>
   </div>
 
-
-  <div class="container pb-5 mb-5 border-bottom">
-    <div class="row justify-content-around">
-      <div class="col-lg-4 mb-4 mb-lg-0">
-
-        <h2 class="mb-4">Why you choose us</h2>
-        <div class="line my-3"></div>
-        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-        <p class="mt-5"><a href="#" class="btn btn-primary">Get In Touch</a></p>
-
-        
-      </div>
-      <div class="col-lg-7">
-        <div class="custom-accordion" id="accordion_1">
-          <div class="accordion-item">
-            <h2 class="mb-0">
-              <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">How to download and register?</button>
-            </h2>
-
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion_1">
-              <div class="accordion-body">
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-              </div>
-            </div>
-          </div> <!-- .accordion-item -->
-
-          <div class="accordion-item">
-            <h2 class="mb-0">
-              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">How to create your paypal account?</button>
-            </h2>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion_1">
-              <div class="accordion-body">
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
-              </div>
-            </div>
-          </div> <!-- .accordion-item -->
-          <div class="accordion-item">
-            <h2 class="mb-0">
-              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">How to link your paypal and bank account?</button>
-            </h2>
-
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion_1">
-              <div class="accordion-body">
-                <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
-              </div>
-            </div>
-
-          </div> <!-- .accordion-item -->
-
-        </div>
-
-
-      </div>
-
-
-    </div>
-  </div>
-
-
-  <div class="section">
+  <div class="section" id="Kubernetes">
     <div class="container">
-      <div class="row justify-content-around align-items-center">
-        <div class="col-lg-6 order-lg-2">
+      <div class="row justify-content-around align-items-center flex-row-reverse">
+        <div class="col-lg-6">
           <div class="image-stack-v2">
             <div class="image-stack__item image-stack__item--top">
               <div data-jarallax-element="-100" class="jarallax">
-                <img src="static/images/img_v_7-min.jpg" alt="Image" class="img-fluid">
+                <img src="static/images/img_v_3-min.jpg" alt="Image" class="img-fluid">
               </div>
             </div>
             <div class="image-stack__item image-stack__item--bottom">
-              <img src="static/images/img_v_5-min.jpg" alt="Image" class="img-fluid">
+              <img src="static/images/img_v_8-min.jpg" alt="Image" class="img-fluid">
             </div>
           </div>
 
@@ -462,11 +325,42 @@
         </div>
         <div class="col-lg-4">
 
-          <h2 class="mb-4">Don't miss the new season 2021 lookbook</h2>
+          <h2 class="mb-4">Kubernetes</h2>
           <div class="line my-3"></div>
           <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-
+          <!--설명 몰라-->
           <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+          <p><a href="{{url_for('kuber_url')}}" class="btn btn-primary">Kubernetes</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="Resource_Lending">
+    <div class="container">
+      <div class="row justify-content-around align-items-center">
+        <div class="col-lg-6">
+          <div class="image-stack-v2">
+            <div class="image-stack__item image-stack__item--top">
+              <div data-jarallax-element="-100" class="jarallax">
+                <img src="static/images/img_v_3-min.jpg" alt="Image" class="img-fluid">
+              </div>
+            </div>
+            <div class="image-stack__item image-stack__item--bottom">
+              <img src="static/images/img_v_8-min.jpg" alt="Image" class="img-fluid">
+            </div>
+          </div>
+
+
+        </div>
+        <div class="col-lg-4">
+
+          <h2 class="mb-4">Resource Lending</h2>
+          <div class="line my-3"></div>
+          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+          <!--설명 몰라-->
+          <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+          <p><a href="http://168.115.119.58:8001/" class="btn btn-primary">Resource Lending</a></p>
         </div>
       </div>
     </div>
@@ -478,14 +372,27 @@
     <div class="container">
       <div class="row mb-5">
         <div class="col-lg-7">
-          <h2 class="mb-4">Blog Posts</h2>
+          <h2 class="mb-4">BeHarbor Notice</h2>
           <div class="line my-3"></div>
+          <p class="more"><a href="http://127.0.0.1:5000/notice">서버에 관련된 최신 공지를 확인하세요!(이거 버튼임...)</a></p>
         </div>
       </div>
       <div class="row">
+        {% for i in range(notices|length) %}
+          <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
+            <div class="blog_entry"> <!-- 히히 이미지도 가져와야 하는데 어띃게 하징 히히 notice 빨리 만들어져야 히히 주소도 가져온느뎅-->
+              <a href="http://127.0.0.1:5000/notice"><img src="static/images/harbor_applicant.png" alt="Image" class="img-fluid"></a>
+              <div class="p-4 bg-white">
+                <h3><a href="http://127.0.0.1:5000/notice">{{notices[i][0]}}</a></h3>
+                <span class="date">{{notices[i][1]}}</span>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                <p class="more"><a href="http://127.0.0.1:5000/notice">Read more...</a></p>
+              </div>
+            </div>
+          </div>                
+        {% endfor %}
 
-
-        <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
+        <!-- <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
           <div class="blog_entry">
             <a href="single.html"><img src="images/img_h_3-min.jpg" alt="Free Website Template by Untree.co" class="img-fluid"></a>
             <div class="p-4 bg-white">
@@ -495,9 +402,9 @@
               <p class="more"><a href="#">Read more...</a></p>
             </div>
           </div>
-        </div>
+        </div> -->
 
-        <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
+        <!-- <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
           <div class="blog_entry">
             <a href="single.html"><img src="static/images/img_h_5-min.jpg" alt="Free Website Template by Untree.co" class="img-fluid"></a>
             <div class="p-4 bg-white">
@@ -507,9 +414,9 @@
               <p class="more"><a href="#">Read more...</a></p>
             </div>
           </div>
-        </div>
+        </div> -->
 
-        <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
+        <!-- <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
           <div class="blog_entry">
             <a href="single.html"><img src="static/images/img_h_7-min.jpg" alt="Free Website Template by Untree.co" class="img-fluid"></a>
             <div class="p-4 bg-white">
@@ -519,21 +426,7 @@
               <p class="more"><a href="#">Read more...</a></p>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-  <div class="custom-hero section">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-6">
-          <h1>Let's Get Started</h1>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-          <p><a href="#" class="btn btn-primary">Get In Touch</a></p>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
